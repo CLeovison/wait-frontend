@@ -9,13 +9,13 @@ export default function Sider() {
     <>
         <aside className='bg-zinc-700 w-56 '>
         <div className="logo">
-                <img src="/src/assets/logo/wait.png" alt=""  className='w-28'/>
-            </div>
+                <Link><img src="/src/assets/logo/wait.png" alt=""  className='w-28'/></Link>      
+        </div>
             <ul className='px-3.5'>
-                <li className="list-none p-4"><Link to='/' className='text-white flex flex-row '><Home/> Home</Link></li>
-                <li className="list-none flex p-4"><Link to="/products" className='text-white flex flex-row '><Shirt />Products</Link></li>
-                <li className="list-none p-4"><Link to="/about" className='text-white flex flex-row '><UsersRound />About</Link></li>
-                <li className="list-none p-4"><Link to="/contact" className='text-white flex flex-row '><SquareUser />Contact</Link></li>
+                <li className="list-none p-4"><Link to='/' className='text-white flex flex-row items-center '><Home className="mr-2.5"/> Home</Link></li>
+                <li className="list-none p-4"><Link to="/products" className='text-white flex flex-row items-center '><Shirt className="mr-2.5"/>Products</Link></li>
+                <li className="list-none p-4"><Link to="/about" className='text-white flex flex-row items-center'><UsersRound className="mr-2.5"/>About</Link></li>
+                <li className="list-none p-4"><Link to="/contact" className='text-white flex flex-row items-center'><SquareUser className="mr-2.5"/>Contact</Link></li>
             </ul>
             
         </aside>
