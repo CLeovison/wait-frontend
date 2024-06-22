@@ -3,23 +3,33 @@ import React, { useState } from "react";
 export default function SearchBar() {
   const [checked, setChecked] = useState(false);
 
- const handleChange = () =>{
- 
-        setChecked(!checked)
- }
-console.log(checked);
+  const handleChange = () => {
+    setChecked(!checked);
+  };
+  console.log(checked);
   return (
     <>
       <form className="flex items-center">
-        <input
-          type="checkbox"
-          id="checkbox"
-          checked={checked}
-          onChange={handleChange}
-          className="hidden"
-        />
-        <label htmlFor="checkbox"></label>
-        <input type="search" name="" id="" className="outline-none text-slate-700"/>
+        {!checked ? (
+          <label htmlFor="checkbox">
+            <input
+              type="checkbox"
+              id="checkbox"
+              checked={checked}
+              onChange={handleChange}
+            />
+          </label>
+        ) : (
+          <label htmlFor="search">
+            <input
+            type="search"
+            id="search"
+            name=""
+            className="outline-none text-slate-700"
+          />
+          </label>
+          
+        )}
       </form>
     </>
   );

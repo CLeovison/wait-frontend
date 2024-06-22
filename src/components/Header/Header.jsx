@@ -12,7 +12,7 @@ export default function Header() {
         <nav className='bg-zinc-700 h-20 flex flex-row gap-2 justify-end items-center'>
         
             <ul className='flex flex-row '>
-                <li className='p-4 text-white'><Link className='flex'><SearchBar/><Search /></Link></li>
+                <li className='p-4 text-white'><Link className='flex'><SearchBar /><Search /></Link></li>
                 <li className='p-4 text-white'><Link><ShoppingCart /></Link></li>
                 <li className='p-4 text-white'><Link><UserRound /></Link></li>
             </ul>
