@@ -1,35 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
 export default function SearchBar() {
-  // const targetRef = useRef(null);
-  const [ischecked, setIsChecked] = useState(false);
-  // const [isFocused, setIsFocused] = useState(false);
-  // const showSearchInput = ischecked || isFocused
+  
+  const [isOpen, setIsOpen] = useState(false);
 
-  // useEffect(() => {
-  //   targetRef.current.value = "";
-  // },[showSearchInput]);
-
-  const handleChange = () => {
-    setIsChecked((prev) => !prev);
-  };
 
   const handleOpen = () => {
-    console.log("Trial");
+    setIsOpen((prev) => !prev);
+    console.log(isOpen);
   };
+
   return (
     <>
       <form className="flex items-center">
-        {!ischecked ? (
+        {!isOpen ? (
           <label htmlFor="search-checkbox">
             <input
               type="checkbox"
               id="search-checkbox"
-              defaultChecked={ischecked}
-              onChange={handleChange}
+              defaultChecked={isOpen}
+              onChange={handleOpen}
               className="hidden"
             />
-            <Search className="cursor-pointer" />
+            <Search className="cursor-pointer" onClick={handleOpen}/>
           </label>
         ) : (
           <label htmlFor="search" className="flex ">
