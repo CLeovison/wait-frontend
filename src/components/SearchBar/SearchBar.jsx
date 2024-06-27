@@ -7,8 +7,7 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null)
   
   //Fetching Data From Backend
-  const [result, setResult] = useState('')
-  const [query, setQuery] = useState([])
+
   
   const handleIcon = (e) => {
     e.preventDefault()
@@ -19,24 +18,11 @@ export default function SearchBar() {
     setIsChecked((prev) => !prev);
   };
 
-  const handleSearch = async (event) =>{
-      const value = event.target.value
-      setQuery(value)
 
-      if(value.length > 2){
-        try{
-          const url = await fetch(`http://localhost:5000/products?products=${value}`)
-          setResult(url.data)
-        }catch(error){
-          console.error("Search error: ",error)
-          setResult([])
-        }
-      }
-  }
 
   return (
     <>
-      <form className="flex items-center" method="get" action={handleSearch}>
+      <form className="flex items-center" method="get" >
         {isChecked && (
           <input
             type="search"
@@ -44,7 +30,7 @@ export default function SearchBar() {
             name="search"
             className="text-black p-1"
             ref={htmlSearchField}
-            defaultValue={result}
+     
           />
           
         )}
