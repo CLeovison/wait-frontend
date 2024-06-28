@@ -6,9 +6,10 @@ export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null)
   
-  //Fetching Data From Backend
-
+  //Fetching Data States
+  const [isLoading, setIsLoading] = useState(false);
   
+
   const handleIcon = (e) => {
     e.preventDefault()
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -17,7 +18,8 @@ export default function SearchBar() {
     }
     setIsChecked((prev) => !prev);
   };
-
+ 
+ 
 
 
   return (
@@ -30,7 +32,8 @@ export default function SearchBar() {
             name="search"
             className="text-black p-1"
             ref={htmlSearchField}
-     
+          
+         
           />
           
         )}
@@ -38,7 +41,10 @@ export default function SearchBar() {
           <Search className="cursor-pointer"/>
         </button>
       </form>
-      
+
+ 
     </>
+
+
   );
 }
