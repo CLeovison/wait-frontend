@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
+import { list } from "postcss";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
@@ -30,9 +31,7 @@ export default function SearchBar() {
     }
     setIsLoading(false)
   };
-  if(isLoading){
-    return <div><p>Loading...</p></div>
-  }
+
 
   //End of Handle Functions
   return (
@@ -54,7 +53,8 @@ export default function SearchBar() {
           <Search className="cursor-pointer" />
         </button>
       </form>
-        
+      {isLoading ? <li>Loading...</li> : ""}
+
     </>
   );
 }
