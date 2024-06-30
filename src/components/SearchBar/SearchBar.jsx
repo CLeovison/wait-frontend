@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 
 export default function SearchBar() {
@@ -37,7 +37,9 @@ export default function SearchBar() {
     }
     setIsLoading(false);
   };
-
+  useEffect(()=>{
+      handleSearch();
+  },[ ])
   //End of Handle Functions
   return (
     <>
