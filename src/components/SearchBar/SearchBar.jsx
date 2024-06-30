@@ -52,7 +52,7 @@ export default function SearchBar() {
           <input
             type="search"
             id="search-checkbox"
-            name="search"
+            name="products"
             className="text-black p-1"
             ref={htmlSearchField}
             onChange={handleSearch}
