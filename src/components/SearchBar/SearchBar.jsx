@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
-import { list } from "postcss";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
@@ -8,8 +7,9 @@ export default function SearchBar() {
 
   //Fetching Data States
   const [isLoading, setIsLoading] = useState(false);
-  const [query, setQuery] = useState([])
+  const [query, setQuery] = useState([]);
   //Handle Functions
+
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -18,25 +18,34 @@ export default function SearchBar() {
     }
     setIsChecked((prev) => !prev);
   };
-  const handleSearch = async (request) => {
-    const url = 'http://localhost:5000/api';
 
+  const handleSearch = async (request) => {
+    const url = "http://localhost:5000/api";
     try {
-      setIsLoading(true)
-      const response = await fetch(`${url}/products?products=${request}`)
-      const products = await response.json()
-      setQuery(products)
+      setIsLoading(true);
+      const response = await fetch(`${url}/products?products=${request}`);
+
+      if (!response) {
+        throw new Error("The Data That You Are Getting Is Not Available");
+      }
+      const products = await response.json();
+      setQuery(products.productPaginated);
+      console.log(products.productPaginated);
     } catch (error) {
       console.error("Search Error:", error);
+      setQuery([]);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   };
-
 
   //End of Handle Functions
   return (
     <>
-      <form className="flex items-center" method="get" action="http://localhost:5000/api/products?products=">
+      <form
+        className="flex items-center"
+        method="get"
+        action="http://localhost:5000/api/products?products="
+      >
         {isChecked && (
           <input
             type="search"
@@ -53,8 +62,15 @@ export default function SearchBar() {
           <Search className="cursor-pointer" />
         </button>
       </form>
-      {isLoading ? <li>Loading...</li> : ""}
+      {isLoading ? <p>Loading...</p> : ""}
 
+      <div>
+        <ul>
+          {query.map((item, index) => {
+            <li key={index}>{item.productPaginated}</li>;
+          })}
+        </ul>
+      </div>
     </>
   );
 }
