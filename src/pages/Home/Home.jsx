@@ -35,7 +35,7 @@ export default function Home() {
       {isLoading && "Loading-Component"}
       <ul>
         {query?.map((item) => {
-          return <li key={item._id}>{item.productinfo?.productname}</li>;
+          return <li key={item._id}>item {item.productinfo?.productname}</li>;
         })}
       </ul>
     </>

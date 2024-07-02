@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
+  const [searchInput, setSearchInput] = useState('')
   const htmlSearchField = useRef(null);
 
   //Handle Functions
@@ -15,27 +16,10 @@ export default function SearchBar() {
     setIsChecked((prev) => !prev);
   };
 
-  const handleSearch = async (request) => {
-    const url = "http://localhost:5000/api";
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${url}/products?products=${request}`);
-
-      if (!response) {
-        throw new Error("The Data That You Are Getting Is Not Available");
-      }
-      const products = await response.json();
-      setQuery(products.productPaginated);
-      console.log(products.productPaginated);
-    } catch (error) {
-      console.error("Search Error:", error);
-      setQuery([]);
-    }
-    setIsLoading(false);
-  };
-  useEffect(()=>{
-      handleSearch();
-  },[ ])
+  const handleChange = (e) =>{
+      setSearchInput(e.target.value)
+      console.log(searchInput)
+  }
   //End of Handle Functions
   return (
     <>
@@ -52,6 +36,9 @@ export default function SearchBar() {
             className="text-black p-1"
             ref={htmlSearchField}
             placeholder="Search Product"
+            value={searchInput}
+            onChange={handleChange}
+
           />
         )}
 
