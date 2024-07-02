@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 
 export default function SearchBar() {
@@ -8,8 +8,8 @@ export default function SearchBar() {
   //Fetching Data States
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState([]);
-  //Handle Functions
 
+  //Handle Functions
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -23,36 +23,36 @@ export default function SearchBar() {
     const url = "http://localhost:5000/api";
     try {
       setIsLoading(true);
-      const response = await fetch(`${url}/products?products=${request}`);
+      const response = await fetch(`${url}/products?search=${request}`);
 
       if (!response) {
         throw new Error("The Data That You Are Getting Is Not Available");
       }
       const products = await response.json();
       setQuery(products.productPaginated);
+      
       console.log(products.productPaginated);
+
     } catch (error) {
       console.error("Search Error:", error);
       setQuery([]);
     }
     setIsLoading(false);
   };
-  useEffect(()=>{
-      handleSearch();
-  },[ ])
-  //End of Handle Functions
+
   return (
     <>
       <form
         className="flex items-center"
         method="get"
         action="http://localhost:5000/api/products?products="
+    
       >
         {isChecked && (
           <input
             type="search"
             id="search-checkbox"
-            name="products"
+            name="search"
             className="text-black p-1"
             ref={htmlSearchField}
             onChange={handleSearch}
