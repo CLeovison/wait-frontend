@@ -1,12 +1,18 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
-  const [searchInput, setSearchInput] = useState('')
+  const [searchInput, setSearchInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState([]);
   const htmlSearchField = useRef(null);
 
-  //Handle Functions
+  //React Router Hooks
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  //Start of Handle Functions
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -16,18 +22,38 @@ export default function SearchBar() {
     setIsChecked((prev) => !prev);
   };
 
-  const handleChange = (e) =>{
-      setSearchInput(e.target.value)
-      console.log(searchInput)
-  }
+  const handleChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
   //End of Handle Functions
+
+  //Effects
+
+  const handleAction = async () => {
+    const url = "http://localhost:5000/api";
+
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `${url}/products/search=${searchParams.get()}`
+      );
+      if (!response) {
+        throw new Error("The Data That You Are Getting Is Not Available");
+      }
+      const products = await response.json();
+      setQuery(products.productPaginated);
+    } catch (error) {
+      console.error("Search Error:", error);
+      setQuery([]);
+    }
+    setIsLoading(false);
+  };
+
+
   return (
     <>
-      <form
-        className="flex items-center"
-        method="get"
-        action="http://localhost:5000/api/products?products="
-      >
+      <form className="flex items-center" method="get" action={handleAction}>
         {isChecked && (
           <input
             type="search"
@@ -38,7 +64,6 @@ export default function SearchBar() {
             placeholder="Search Product"
             value={searchInput}
             onChange={handleChange}
-
           />
         )}
 
@@ -46,6 +71,8 @@ export default function SearchBar() {
           <Search className="cursor-pointer" />
         </button>
       </form>
+
+      {isLoading ? <p>Loading...</p> : ""}
     </>
   );
 }
