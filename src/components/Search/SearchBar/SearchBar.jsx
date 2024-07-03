@@ -36,13 +36,14 @@ export default function SearchBar() {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${url}/products/search=${searchParams.get()}`
+        `${url}/products?search=${searchParams.get()}`
       );
       if (!response) {
         throw new Error("The Data That You Are Getting Is Not Available");
       }
       const products = await response.json();
       setQuery(products.productPaginated);
+      console.log(products.productPaginated);
     } catch (error) {
       console.error("Search Error:", error);
       setQuery([]);
