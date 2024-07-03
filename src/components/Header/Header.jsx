@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 //Icons
 import { UserRound } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../Search/SearchBar/SearchBar";
 export default function Header() {
   return (
     <>

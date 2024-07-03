@@ -31,7 +31,7 @@ export default function Home() {
   },[]);
   return (
     <>
-      <h2>search = {request?.get("search")}</h2>
+x      <h2>search = {request?.get("search")}</h2>
       {isLoading && "Loading-Component"}
       <ul>
         {query?.map((item) => {

@@ -15,27 +15,7 @@ export default function SearchBar() {
     setIsChecked((prev) => !prev);
   };
 
-  const handleSearch = async (request) => {
-    const url = "http://localhost:5000/api";
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${url}/products?products=${request}`);
-
-      if (!response) {
-        throw new Error("The Data That You Are Getting Is Not Available");
-      }
-      const products = await response.json();
-      setQuery(products.productPaginated);
-      console.log(products.productPaginated);
-    } catch (error) {
-      console.error("Search Error:", error);
-      setQuery([]);
-    }
-    setIsLoading(false);
-  };
-  useEffect(()=>{
-      handleSearch();
-  },[ ])
+  
   //End of Handle Functions
   return (
     <>
