@@ -10,7 +10,7 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
 
   //React Router Hooks
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   //Start of Handle Functions
   const handleIcon = (e) => {
