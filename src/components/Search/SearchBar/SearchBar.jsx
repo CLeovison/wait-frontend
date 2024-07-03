@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
+  const [searchInput, setSearchInput] = useState('')
   const htmlSearchField = useRef(null);
 
   //Handle Functions
@@ -15,7 +16,10 @@ export default function SearchBar() {
     setIsChecked((prev) => !prev);
   };
 
-  
+  const handleChange = (e) =>{
+      setSearchInput(e.target.value)
+      console.log(searchInput)
+  }
   //End of Handle Functions
   return (
     <>
@@ -32,6 +36,9 @@ export default function SearchBar() {
             className="text-black p-1"
             ref={htmlSearchField}
             placeholder="Search Product"
+            value={searchInput}
+            onChange={handleChange}
+
           />
         )}
 

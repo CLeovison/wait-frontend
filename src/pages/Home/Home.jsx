@@ -35,7 +35,7 @@ x      <h2>search = {request?.get("search")}</h2>
       {isLoading && "Loading-Component"}
       <ul>
         {query?.map((item) => {
-          return <li key={item._id}>{item.productinfo?.productname}</li>;
+          return <li key={item._id}>item {item.productinfo?.productname}</li>;
         })}
       </ul>
     </>
