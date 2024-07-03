@@ -54,7 +54,7 @@ export default function SearchBar() {
 
   return (
     <>
-      <form className="flex items-center" method="get" action={handleAction}>
+      <form className="flex items-center" method="get" >
         {isChecked && (
           <input
             type="search"
