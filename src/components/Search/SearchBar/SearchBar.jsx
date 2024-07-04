@@ -5,12 +5,11 @@ import { useSearchParams } from "react-router-dom";
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [query, setQuery] = useState([]);
-  const htmlSearchField = useRef(null);
+  const [query, setQuery] = useState([])
 
+  const htmlSearchField = useRef(null);
+  const setSearchParams = useSearchParams()
   //React Router Hooks
-  const [searchParams] = useSearchParams();
 
   //Start of Handle Functions
   const handleIcon = (e) => {
@@ -29,32 +28,22 @@ export default function SearchBar() {
   //End of Handle Functions
 
   //Effects
-
-  const handleAction = async () => {
-    const url = "http://localhost:5000/api";
-
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `${url}/products?search=${searchParams.get()}`
-      );
-      if (!response) {
-        throw new Error("The Data That You Are Getting Is Not Available");
-      }
-      const products = await response.json();
-      setQuery(products.productPaginated);
-      console.log(products.productPaginated);
-    } catch (error) {
-      console.error("Search Error:", error);
-      setQuery([]);
+  const handleSubmit = async () =>{
+    const url = "http://localhost:5000/api"
+    
+    try{
+      const response = await fetch(`${url}/products?term=${setSearchParams.get()}`)
+      const products = await response.json()
+      setQuery(products)
+    }catch(error){
+      console.error("Search Error:",error)
     }
-    setIsLoading(false);
-  };
-
+  }
+  
 
   return (
     <>
-      <form className="flex items-center" method="get" >
+      <form className="flex items-center" onSubmit={handleSubmit}>
         {isChecked && (
           <input
             type="search"
@@ -73,7 +62,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isLoading ? <p>Loading...</p> : ""}
+  
     </>
   );
 }
