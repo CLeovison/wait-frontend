@@ -1,15 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const [query, setQuery] = useState([])
-
   const htmlSearchField = useRef(null);
-  const setSearchParams = useSearchParams()
-  //React Router Hooks
 
   //Start of Handle Functions
   const handleIcon = (e) => {
@@ -27,28 +22,14 @@ export default function SearchBar() {
 
   //End of Handle Functions
 
-  //Effects
-  const handleSubmit = async () =>{
-    const url = "http://localhost:5000/api"
-    
-    try{
-      const response = await fetch(`${url}/products?term=${setSearchParams.get()}`)
-      const products = await response.json()
-      setQuery(products)
-    }catch(error){
-      console.error("Search Error:",error)
-    }
-  }
-  
-
   return (
     <>
-      <form className="flex items-center" onSubmit={handleSubmit}>
+      <form className="flex items-center">
         {isChecked && (
           <input
             type="search"
             id="search-checkbox"
-            name="search"
+            name="term"
             className="text-black p-1"
             ref={htmlSearchField}
             placeholder="Search Product"
@@ -61,8 +42,6 @@ export default function SearchBar() {
           <Search className="cursor-pointer" />
         </button>
       </form>
-
-  
     </>
   );
 }

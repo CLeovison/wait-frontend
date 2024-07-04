@@ -9,7 +9,7 @@ export default function Sider() {
     <>
         <aside className='bg-zinc-700 w-56 '>
         <div className="logo">
-                <Link><img src="/src/assets/logo/wait.png" alt=""  className='w-28'/></Link>      
+                <Link><img src="/src/assets/logo/wait.png" alt=""  className='w-28 ml-3 mt-1 mb-3'/></Link>      
         </div>
             <ul className='px-3.5 list-none'>
                 <li className="p-4"><Link to='/' className='text-white flex flex-row items-center '><Home className="mr-2.5"/> Home</Link></li>
