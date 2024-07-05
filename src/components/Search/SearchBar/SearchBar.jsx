@@ -1,14 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
-
+import { useSearchParams } from "react-router-dom";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
 
+  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const htmlSearchField = useRef(null);
 
- 
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -19,14 +18,19 @@ export default function SearchBar() {
   };
 
   const handleChange = (e) => {
-    setSearchInput(e.target.value);
+    setSearchParams((prev) => {
+      prev.set("q", e.target.value);
+    });
   };
 
+  const handleValue = () => {
+    searchParams.get("q");
+  };
   //End of Handle Functions
 
   return (
     <>
-      <form className="flex items-center" >
+      <form className="flex items-center">
         {isChecked && (
           <input
             type="search"
@@ -35,8 +39,9 @@ export default function SearchBar() {
             className="text-black p-1"
             ref={htmlSearchField}
             placeholder="Search Product"
-            value={searchInput}
             onChange={handleChange}
+            value={handleValue((e) => e.target.value)}
+           
           />
         )}
 
