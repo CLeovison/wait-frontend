@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 
+
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+
   const htmlSearchField = useRef(null);
 
-  //Start of Handle Functions
+ 
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -24,7 +26,7 @@ export default function SearchBar() {
 
   return (
     <>
-      <form className="flex items-center">
+      <form className="flex items-center" >
         {isChecked && (
           <input
             type="search"

@@ -1,11 +1,12 @@
 import React from 'react'
-import Carousel from '../../components/Carousel/Carousel'
+import Slider from '../../components/Slider/Slider'
+
 
 export default function Home() {
   return (
       <>
-      
-      <Carousel/>
+       <Slider/>
+     
       </>
   )
 }
