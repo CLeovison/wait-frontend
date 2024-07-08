@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
-import SearchResult from "../SearchResult/SearchResult";
+
 
 export default function SearchBar({values, changes}) {
   const [isChecked, setIsChecked] = useState(false);

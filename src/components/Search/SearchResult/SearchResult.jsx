@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export default function SearchResult() {
-
   const [query, setQuery] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
@@ -29,12 +28,7 @@ export default function SearchResult() {
       setIsLoading(false);
     };
     handleChange();
-  }, []);
+  }, [query]);
 
-  return (
-    <>
-      {isLoading ? <p>Loading...</p> : ""}
-
-    </>
-  );
+  return <>{isLoading ? <p>Loading...</p> : ""}</>;
 }
