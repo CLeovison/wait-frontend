@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
+import SearchResult from "../SearchResult/SearchResult";
 
-export default function SearchBar() {
+export default function SearchBar({values, changes}) {
   const [isChecked, setIsChecked] = useState(false);
-
-  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const htmlSearchField = useRef(null);
 
   const handleIcon = (e) => {
@@ -17,15 +15,7 @@ export default function SearchBar() {
     setIsChecked((prev) => !prev);
   };
 
-  const handleChange = (e) => {
-    setSearchParams((prev) => {
-      prev.set("q", e.target.value);
-    });
-  };
 
-  const handleValue = () => {
-    searchParams.get("q");
-  };
   //End of Handle Functions
 
   return (
@@ -39,8 +29,8 @@ export default function SearchBar() {
             className="text-black p-1"
             ref={htmlSearchField}
             placeholder="Search Product"
-            onChange={handleChange}
-            value={handleValue((e) => e.target.value)}
+            onChange={changes}
+            value={values}
            
           />
         )}
@@ -49,6 +39,8 @@ export default function SearchBar() {
           <Search className="cursor-pointer" />
         </button>
       </form>
+
+      <SearchResult/>
     </>
   );
 }
