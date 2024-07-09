@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchResult from '../../components/Search/SearchResult/SearchResult'
 
 
 export default function Products() {
@@ -6,7 +7,7 @@ export default function Products() {
   return (
     <>
     
-    product shit
+    <SearchResult/>
     </>
   )
 }
