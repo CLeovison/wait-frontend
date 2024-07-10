@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
-  const [values, setValues] = useState("");
-  const [query, setQuery] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  
+
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -15,37 +16,20 @@ export default function SearchBar() {
     setIsChecked((prev) => !prev);
   };
 
-  //End of Handle Functions
-  useEffect(() => {
-    const handleData = async () => {
-      const url = "http://localhost:5000/api";
 
-      try {
-        const response = await fetch(`${url}/users/search?term=${values}`);
-        const users = await response.json();
-        setQuery(users);
-      } catch (error) {
-        console.error("Search Error: ", error);
-      }
-    };
-    handleData();
-  }, [values]);
-
-  const handleValues = (e) =>{
-      setValues(e.target.value)
-  }
   return (
     <>
-      <form className="flex items-center">
+      <form className="flex items-center" action="/">
         {isChecked && (
           <input
             type="search"
             id="search-checkbox"
-            name="term"
+            name="search"
             className="text-black p-1"
             ref={htmlSearchField}
             placeholder="Search Product"
-            onChange={handleValues}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            value={searchTerm}
           />
         )}
 
