@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-
 
 export default function SearchResult() {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,14 +32,13 @@ export default function SearchResult() {
   }, []);
   return (
     <>
-   <h2>search = {request?.get("search")}</h2>
+      <h2>search = {request?.get("search")}</h2>
       {isLoading && "Loading-Component"}
-      <ul>
-        {query?.map((item) => {
-           return <li key={item._id}>item {item.productinfo?.productname}</li>
-        })}
+      <ul className="border	border-black p-1">
+        {query?.map((item) => (
+          <li key={item._id}>{item.productinfo?.productname}</li>
+        ))}
       </ul>
-
     </>
-  )
+  );
 }
