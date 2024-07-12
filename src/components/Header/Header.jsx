@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { UserRound } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import SearchBar from "../Search/SearchBar/SearchBar";
+import SearchResult from "../Search/SearchResult/SearchResult";
 export default function Header() {
   return (
     <>
@@ -11,6 +12,7 @@ export default function Header() {
         <ul className="flex">
           <li className="p-4 text-white inline-block">
             <SearchBar />
+            <SearchResult />
           </li>
           <li className="p-4 text-white grid content-center">
             <Link>
