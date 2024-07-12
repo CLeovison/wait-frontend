@@ -37,7 +37,9 @@ export default function SearchResult() {
       {isLoading && "Loading-Component"}
       <ul>
         {query?.map((item) => {
-           return <li key={item._id}>item {item.productinfo?.productname}</li>
+           return <li key={item._id}>item {item.productinfo?.productname}
+           <p>{item.imageUrl}</p>
+           </li>
         })}
       </ul>
 
