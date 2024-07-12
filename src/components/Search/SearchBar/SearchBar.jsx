@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
-import SearchResult from "../SearchResult/SearchResult";
+
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showSearchResult, setShowSearchResult] = useState(false)
+
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {showSearchResult? <SearchResult/> : null}
+   
     </>
   );
 }

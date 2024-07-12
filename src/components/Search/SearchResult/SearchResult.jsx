@@ -32,7 +32,6 @@ export default function SearchResult() {
   }, []);
   return (
     <>
-      <h2>search = {request?.get("search")}</h2>
       {isLoading && "Loading-Component"}
       <ul className="border	border-black p-1">
         {query?.map((item) => (

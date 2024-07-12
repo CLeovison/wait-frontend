@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 //Icons
 import { UserRound } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import SearchBar from "../Search/SearchBar/SearchBar";
 import SearchResult from "../Search/SearchResult/SearchResult";
+
 export default function Header() {
+  const [showResult, setShowResult] = useState(false);
+
+
+
   return (
     <>
       <nav className="bg-zinc-700 h-20 flex flex-row gap-2 justify-end items-center">
