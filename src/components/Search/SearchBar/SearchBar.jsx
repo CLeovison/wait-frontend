@@ -1,12 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
+import SearchResult from "../SearchResult/SearchResult";
 
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [isResultShown, setIsResultShown] = useState(false);
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -15,9 +16,18 @@ export default function SearchBar() {
       e.target.closest("form").requestSubmit(e.currentTarget);
     }
     setIsChecked((prev) => !prev);
+    setIsResultShown(true)
   };
 
+  const handleOutsideClick = (e) =>{
+    if(!htmlSearchField.current.contains(e.target)){
+      setIsResultShown(false)
+    }
+  }
 
+  useEffect(() =>{
+    document.addEventListener('click', handleOutsideClick, true)
+  })
   return (
     <>
       <form className="flex items-center" action="/">
@@ -39,7 +49,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-   
+      {isResultShown ? <SearchResult/> : null }
     </>
   );
 }
