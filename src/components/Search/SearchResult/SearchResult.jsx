@@ -33,9 +33,9 @@ export default function SearchResult() {
   return (
     <>
       {isLoading && "Loading-Component"}
-      <ul className="border	border-black p-1">
+      <ul className="border	border-black p-1 ">
         {query?.map((item) => (
-          <li key={item._id}>{item.productinfo?.productname}</li>
+          <li key={item._id} >{item.productinfo?.productname}</li>
         ))}
       </ul>
     </>
