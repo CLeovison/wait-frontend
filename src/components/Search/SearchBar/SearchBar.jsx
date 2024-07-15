@@ -21,7 +21,6 @@ export default function SearchBar() {
   const handleOutsideClick = (e) => {
     if (!htmlSearchField.current.contains(e.target)) {
       setIsResultShown(false);
-
     }
   };
 
@@ -30,7 +29,7 @@ export default function SearchBar() {
   });
   return (
     <>
-      <form className="flex items-center" action="/">
+      <form className="flex items-center">
         {isChecked && (
           <input
             type="search"
@@ -49,7 +48,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isResultShown ? <SearchResult /> : null}
+      {isResultShown ? <SearchResult className="hidden bg-red-400" /> : null}
     </>
   );
 }
