@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import SearchResult from "../SearchResult/SearchResult";
+import { useSearch } from "../../../hooks/Context/useSearch";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isResultShown, setIsResultShown] = useState(false);
+  const { search } = useSearch();
 
+  console.log(search)
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -24,12 +27,16 @@ export default function SearchBar() {
     }
   };
 
+  const handleForm = (e) => {
+    e.preventDefault();
+    search(searchTerm);
+  };
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick, true);
   });
   return (
     <>
-      <form className="flex items-center">
+      <form className="flex items-center" onSubmit={handleForm}>
         {isChecked && (
           <input
             type="search"

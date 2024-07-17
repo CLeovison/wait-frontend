@@ -4,11 +4,9 @@ import { useSearchParams } from "react-router-dom";
 export const SearchContext = createContext();
 
 export const SearchContextProvider = ({ children }) => {
-  const [query, setQuery] = useState("");
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const [request] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const search = async () => {
     const url = "http://localhost:5000";
@@ -17,7 +15,7 @@ export const SearchContextProvider = ({ children }) => {
       setIsLoading(true);
 
       const response = await fetch(
-        `${url}/products?productinfo.productname=${request.get("search")}`
+        `${url}/products?productinfo.productname=${searchParams.get("search")}`
       );
       if (!response) {
         throw new Error("No Result Was Found");
@@ -30,11 +28,15 @@ export const SearchContextProvider = ({ children }) => {
     }
   };
 
+
+
   return (
     <>
-      <SearchContext.Provider value={{search, query, result}}>
+      <SearchContext.Provider
+        value={{ search, searchParams, result, isLoading, setSearchParams }}
+      >
         {children}
-        </SearchContext.Provider>
+      </SearchContext.Provider>
     </>
   );
 };
