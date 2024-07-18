@@ -3,12 +3,12 @@ import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext();
 
-export const SearchProvider = ({ children }) => {
+export const SearchContextProvider = ({ children }) => {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = async (searchQuery) => {
+  const search = async () => {
     const url = "http://localhost:5000";
 
     try {
@@ -28,10 +28,12 @@ export const SearchProvider = ({ children }) => {
     }
   };
 
+
+
   return (
     <>
       <SearchContext.Provider
-        value={{ search, searchParams, result, isLoading }}
+        value={{ search, searchParams, result, isLoading, setSearchParams }}
       >
         {children}
       </SearchContext.Provider>
