@@ -3,27 +3,25 @@ import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext();
 
-export const SearchContextProvider = ({ children }) => {
-  const [query, setQuery] = useState("");
+export const SearchProvider = ({ children }) => {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [request] = useSearchParams()
-
-  const search = async () => {
+  const search = async (searchQuery) => {
     const url = "http://localhost:5000";
 
     try {
+      setSearchParams(searchQuery);
       setIsLoading(true);
-
       const response = await fetch(
-        `${url}/products?productinfo.productname=${request.get("search")}`
+        `${url}/products?productinfo.productname=${searchParams.get("search")}`
       );
       if (!response) {
         throw new Error("No Result Was Found");
       }
       const products = await products.json();
-      setResult(products);
+      setResult(products.productinfo);
     } catch (error) {
       console.error("Search Term:", error);
       setResult([]);
@@ -32,9 +30,11 @@ export const SearchContextProvider = ({ children }) => {
 
   return (
     <>
-      <SearchContext.Provider value={{search, query, result}}>
+      <SearchContext.Provider
+        value={{ search, searchParams, result, isLoading }}
+      >
         {children}
-        </SearchContext.Provider>
+      </SearchContext.Provider>
     </>
   );
 };

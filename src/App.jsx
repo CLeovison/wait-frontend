@@ -1,6 +1,8 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+
+
 //Pages
 import Root from "./pages/Root/Root";
 import Products from "./pages/Products/Products";
@@ -41,6 +43,7 @@ export default function App() {
   return (
     <>
       <RouterProvider router={router} />
+      
     </>
   );
 }
