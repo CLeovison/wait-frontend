@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 
 import { useSearch } from "../../../hooks/Context/useSearch";
 
+
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
@@ -54,7 +55,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      
+    
     </>
   );
 }

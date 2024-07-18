@@ -17,23 +17,21 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorMessage />,
     children: [
-      {path: "/",
-        element: <Home/>
-      },
+      { path: "/", element: <Home /> },
 
       {
         path: "/products",
-        element: <Products/>
+        element: <Products />,
       },
       {
         path: "/about",
-        element: <About/>
+        element: <About />,
       },
       {
         path: "/contact",
-        element: <Contact/>
-      }
-    ]
+        element: <Contact />,
+      },
+    ],
   },
 ]);
 
@@ -41,8 +39,6 @@ export default function App() {
   return (
     <>
       <RouterProvider router={router} />
-
-      
     </>
   );
 }
