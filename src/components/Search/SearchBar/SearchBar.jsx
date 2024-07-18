@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
-import SearchResult from "../SearchResult/SearchResult";
+
 import { useSearch } from "../../../hooks/Context/useSearch";
 
 export default function SearchBar() {
@@ -10,7 +10,6 @@ export default function SearchBar() {
   const [isResultShown, setIsResultShown] = useState(false);
   const { search } = useSearch();
 
-  console.log(search)
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -55,7 +54,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isResultShown ? <SearchResult className="hidden bg-red-400" /> : null}
+      
     </>
   );
 }
