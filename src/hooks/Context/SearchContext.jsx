@@ -8,7 +8,7 @@ export const SearchContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = async () => {
+  const search = async (searchQuery) => {
     const url = "http://localhost:5000";
 
     try {
@@ -21,14 +21,14 @@ export const SearchContextProvider = ({ children }) => {
         throw new Error("No Result Was Found");
       }
       const products = await products.json();
-      setResult(products.productinfo);
+      return setResult(products.productinfo);
     } catch (error) {
       console.error("Search Term:", error);
       setResult([]);
     }
   };
 
-
+  console.log(search())
 
   return (
     <>
