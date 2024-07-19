@@ -3,13 +3,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 //Pages
 import Root from "./pages/Root/Root";
+
+import About from "./pages/About/About";
+import Contact from "./pages/Contacts/Contact";
+import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
 
 //Error Handling
 import ErrorMessage from "./util/ErrorMessage/ErrorMessage";
-import About from "./pages/About/About";
-import Contact from "./pages/Contacts/Contact";
-import Home from "./pages/Home/Home";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorMessage />,
     children: [
-      { path: "/", element: <Home /> },
+      { path: "/",
+        element: <Home /> },
 
       {
         path: "/products",

@@ -1,14 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { Search } from "lucide-react";
-import { useSearch } from "../../../hooks/Context/useSearch";
+import { SearchContextProvider } from "../../../hooks/Context/SearchContext";
+import { SearchContext } from "../../../hooks/Context/SearchContext";
+import SearchResult from "../SearchResult/SearchResult";
 
-
+<SearchContextProvider>
+  <SearchBar />
+</SearchContextProvider>;
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isResultShown, setIsResultShown] = useState(false);
-  const { search } = useSearch();
+  const UseSearch = useContext(SearchContext);
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -28,7 +32,7 @@ export default function SearchBar() {
 
   const handleForm = (e) => {
     e.preventDefault();
-    search(searchTerm);
+    UseSearch(searchTerm);
   };
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick, true);
@@ -54,7 +58,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-    
+      <SearchResult/>
     </>
   );
 }

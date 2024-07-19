@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext();
-
+ 
 export const SearchContextProvider = ({ children }) => {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ export const SearchContextProvider = ({ children }) => {
     }
   };
 
-  console.log(search())
+
 
   return (
     <>
