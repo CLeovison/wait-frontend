@@ -17,8 +17,11 @@ export default function Sider() {
                 <li className="p-4"><Link to="/about" className='text-white flex flex-row items-center'><UsersRound className="mr-2.5"/>About</Link></li>
                 <li className="p-4"><Link to="/contact" className='text-white flex flex-row items-center'><SquareUser className="mr-2.5"/>Contact</Link></li>
             </ul>
-            
+        <footer>
+         
+        </footer>    
         </aside>
+        
     </>
   )
 }
