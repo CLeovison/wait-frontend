@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 //Icons
-import { UserRound } from "lucide-react";
+import { Heart, UserRound } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import SearchBar from "../Search/SearchBar/SearchBar";
 
@@ -15,6 +15,11 @@ export default function Header() {
           </li>
           <li className="p-4 text-white grid content-center">
             <Link>
+              <Heart/>
+            </Link>
+          </li>
+          <li className="p-4 text-white grid content-center">
+            <Link>
               <ShoppingCart />
             </Link>
           </li>
@@ -23,6 +28,7 @@ export default function Header() {
               <UserRound />
             </Link>
           </li>
+     
         </ul>
       </nav>
     </>

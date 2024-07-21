@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import { Search } from "lucide-react";
 import { SearchContextProvider } from "../../../hooks/Context/SearchContext";
 import { SearchContext } from "../../../hooks/Context/SearchContext";
-import SearchResult from "../SearchResult/SearchResult";
+
 
 <SearchContextProvider>
   <SearchBar />
@@ -58,7 +58,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      <SearchResult/>
+
     </>
   );
 }

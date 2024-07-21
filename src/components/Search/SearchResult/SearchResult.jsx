@@ -1,9 +1,7 @@
 import React, {useContext} from "react";
-import { SearchContext, SearchContextProvider } from "../../../hooks/Context/SearchContext";
+import { SearchContext } from "../../../hooks/Context/SearchContext";
 
-<SearchContextProvider>
-  <SearchResult/>
-</SearchContextProvider>
+
 
 export default function SearchResult() {
   
