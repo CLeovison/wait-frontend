@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { Search } from "lucide-react";
 import { SearchContextProvider } from "../../../hooks/Context/SearchContext";
 import { SearchContext } from "../../../hooks/Context/SearchContext";
-
 
 <SearchContextProvider>
   <SearchBar />
@@ -12,7 +12,7 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isResultShown, setIsResultShown] = useState(false);
-  const UseSearch = useContext(SearchContext);
+  const { UseSearch } = useContext(SearchContext);
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -57,8 +57,6 @@ export default function SearchBar() {
           <Search className="cursor-pointer" />
         </button>
       </form>
-
-
     </>
   );
 }
