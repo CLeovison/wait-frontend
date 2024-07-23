@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-import { SearchContext, SearchContextProvider } from "../../../hooks/Context/SearchContext";
+import React from "react";
+import { SearchContextProvider } from "../../../hooks/Context/SearchContext";
+import { useSearchContext } from "../../../hooks/Context/useSearchContext";
 
 
 
@@ -8,7 +9,7 @@ import { SearchContext, SearchContextProvider } from "../../../hooks/Context/Sea
 </SearchContextProvider>;
 
 export default function SearchResult() {
-  const { searchParams, results, isLoading } = useContext(SearchContext)
+  const { searchParams, results, isLoading } = useSearchContext()
   return (
     <>
       <h1>Search Results for {searchParams}</h1>
