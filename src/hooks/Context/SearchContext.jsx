@@ -15,7 +15,9 @@ export const SearchContextProvider = ({ children }) => {
       setSearchParams(searchQuery);
       setIsLoading(true);
       const response = await fetch(
-        `${url}/products?productinfo.productname=${searchParams.get("search")}`
+        `${url}/products?productinfo.productname=${searchParams.get("search")}`, {
+          method: 'GET'
+        }
       );
       if (!response) {
         throw new Error("No Result Was Found");

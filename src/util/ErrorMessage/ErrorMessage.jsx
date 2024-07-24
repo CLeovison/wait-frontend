@@ -1,7 +1,5 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
-
 
 export default function ErrorMessage() {
   return (
@@ -12,9 +10,10 @@ export default function ErrorMessage() {
 
           <p>The Page that you are looking cannot be found</p>
           <p>Please make sure to provide a correct URL</p>
-          
         </div>
-        <Link to="/" className="">Home</Link>
+        <Link to="/" className="">
+          Home
+        </Link>
       </section>
     </>
   );
