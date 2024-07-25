@@ -11,7 +11,6 @@ export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isResultShown, setIsResultShown] = useState(false);
   const { UseSearch } = useContext(SearchContext);
 
   const handleIcon = (e) => {
@@ -21,25 +20,14 @@ export default function SearchBar() {
       e.target.closest("form").requestSubmit(e.currentTarget);
     }
     setIsChecked((prev) => !prev);
-    setIsResultShown(true);
   };
 
-  const handleOutsideClick = (e) => {
-    if (!htmlSearchField.current.contains(e.target)) {
-      setIsResultShown(false);
-    }
-  };
-
-  const handleForm = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    UseSearch(searchTerm);
   };
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick, true);
-  });
   return (
     <>
-      <form className="flex items-center" onSubmit={handleForm}>
+      <form className="flex items-center" onSubmit={handleSubmit}>
         {isChecked && (
           <input
             type="search"
