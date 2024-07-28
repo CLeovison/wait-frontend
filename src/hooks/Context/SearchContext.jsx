@@ -11,6 +11,8 @@ export const SearchContextProvider = ({ children }) => {
 
   //SearchParams
   const [searchParams, setSearchParams] = useSearchParams();
+
+  //Value
   const searchValue = searchParams.get("search");
 
   //UseEffect
@@ -33,11 +35,11 @@ export const SearchContextProvider = ({ children }) => {
       setIsLoading(false);
     };
     search();
-  }, []);
+  }, [result]);
   return (
     <>
       <SearchContext.Provider
-        value={{ result, query, searchParams, isLoading }}
+        value={{ result, query, searchParams, isLoading, setSearchParams }}
       >
         {children}
       </SearchContext.Provider>
