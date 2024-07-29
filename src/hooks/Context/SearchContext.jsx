@@ -6,7 +6,7 @@ export const SearchContext = createContext("");
 export const SearchContextProvider = ({ children }) => {
   //States
   const [result, setResult] = useState([]);
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   //SearchParams
@@ -14,7 +14,16 @@ export const SearchContextProvider = ({ children }) => {
 
   //Value
   const searchValue = searchParams.get("search");
+  const setSearch = setSearchParams();
+  //Provider Value
 
+  const providerValue = {
+    result,
+    query,
+    searchParams,
+    isLoading,
+    setSearch
+  };
   //UseEffect
   useEffect(() => {
     const search = async () => {
@@ -35,12 +44,10 @@ export const SearchContextProvider = ({ children }) => {
       setIsLoading(false);
     };
     search();
-  }, [result]);
+  }, []);
   return (
     <>
-      <SearchContext.Provider
-        value={{ result, query, searchParams, isLoading, setSearchParams }}
-      >
+      <SearchContext.Provider value={providerValue}>
         {children}
       </SearchContext.Provider>
     </>

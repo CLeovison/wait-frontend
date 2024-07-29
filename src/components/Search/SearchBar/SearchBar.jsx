@@ -11,7 +11,8 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const {setSearchParams, result, isLoading } = useSearch()
+  const { result, query, searchParams, isLoading, setSearch } = useSearch();
+
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -23,7 +24,7 @@ export default function SearchBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearchParams(searchTerm)
+    setSearch(searchTerm);
   };
   return (
     <>
