@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { SearchContextProvider } from "../../../hooks/Context/SearchContext";
-import { SearchContext } from "../../../hooks/Context/SearchContext";
-
+import { useSearch } from "../../../hooks/Context/useSearch";
 <SearchContextProvider>
   <SearchBar />
 </SearchContextProvider>;
@@ -11,9 +10,8 @@ export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isResultShown, setIsResultShown] = useState(false);
-  const { UseSearch } = useContext(SearchContext);
 
+  const {setSearchParams, result, isLoading } = useSearch()
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -21,25 +19,15 @@ export default function SearchBar() {
       e.target.closest("form").requestSubmit(e.currentTarget);
     }
     setIsChecked((prev) => !prev);
-    setIsResultShown(true);
   };
 
-  const handleOutsideClick = (e) => {
-    if (!htmlSearchField.current.contains(e.target)) {
-      setIsResultShown(false);
-    }
-  };
-
-  const handleForm = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    UseSearch(searchTerm);
+    setSearchParams(searchTerm)
   };
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick, true);
-  });
   return (
     <>
-      <form className="flex items-center" onSubmit={handleForm}>
+      <form className="flex items-center" onSubmit={handleSubmit}>
         {isChecked && (
           <input
             type="search"

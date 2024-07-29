@@ -1,41 +1,45 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext("");
- 
+
 export const SearchContextProvider = ({ children }) => {
+  //States
   const [result, setResult] = useState([]);
+  const [query, setQuery] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  //SearchParams
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = async (searchQuery) => {
-    const url = "http://localhost:5000";
+  //Value
+  const searchValue = searchParams.get("search");
 
-    try {
-      setSearchParams(searchQuery);
-      setIsLoading(true);
-      const response = await fetch(
-        `${url}/products?productinfo.productname=${searchParams.get("search")}`, {
-          method: 'GET'
+  //UseEffect
+  useEffect(() => {
+    const search = async () => {
+      const url = "http://localhost:5000/api";
+
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${url}/search/term=${searchValue}`);
+        if (!response) {
+          throw new Error("The product that you are retriving doesn't exist");
         }
-      );
-      if (!response) {
-        throw new Error("No Result Was Found");
+        const products = await response.json();
+        setResult(products.productinfo);
+      } catch (error) {
+        console.error("Search Error:", error);
+        setResult([]);
       }
-      const products = await products.json();
-      return setResult(products.productinfo);
-    } catch (error) {
-      console.error("Search Term:", error);
-      setResult([]);
-    }
-  };
-
-
-
+      setIsLoading(false);
+    };
+    search();
+  }, [result]);
   return (
     <>
       <SearchContext.Provider
-        value={{ search, searchParams, result, isLoading, setSearchParams }}
+        value={{ result, query, searchParams, isLoading, setSearchParams }}
       >
         {children}
       </SearchContext.Provider>

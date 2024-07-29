@@ -1,15 +1,13 @@
 import React from "react";
 import { SearchContextProvider } from "../../../hooks/Context/SearchContext";
-import { useSearchContext } from "../../../hooks/Context/useSearchContext";
-
-
+import { useSearch } from "../../../hooks/Context/useSearch";
 
 <SearchContextProvider>
   <SearchResult />
 </SearchContextProvider>;
 
 export default function SearchResult() {
-  const { searchParams, results, isLoading } = useSearchContext()
+  const { searchParams, isLoading, result } = useSearch();
   return (
     <>
       <h1>Search Results for {searchParams}</h1>
@@ -17,9 +15,7 @@ export default function SearchResult() {
         <p>Loading...</p>
       ) : (
         <ul>
-          {results.map((result) => (
-            <li key={result._id}>{result.name}</li>
-          ))}
+          <li>Slap</li>
         </ul>
       )}
     </>
