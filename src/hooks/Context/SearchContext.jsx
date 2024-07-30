@@ -10,7 +10,10 @@ export const SearchContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   //SearchParams
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({
+    q: "",
+    product:""
+  });
 
   //Value
   const searchValue = searchParams.get("search");
