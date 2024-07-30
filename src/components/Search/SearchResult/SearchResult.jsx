@@ -14,9 +14,11 @@ export default function SearchResult() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
-          <li>Slap</li>
-        </ul>
+        result.map((data,index) =>{
+          <ul>
+            <li key={index._id}></li>
+          </ul>
+        })
       )}
     </>
   );
