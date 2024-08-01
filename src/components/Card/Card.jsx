@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
 
 export default function Card() {
   return (
-    <div>Card</div>
-  )
+    <>
+      <section className="border-black">
+        <img src="" alt="" />
+        <h2 className="">Redemption Campaign</h2>
+        <p></p>
+      </section>
+    </>
+  );
 }

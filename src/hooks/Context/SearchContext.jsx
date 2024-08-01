@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+
 import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext("");
@@ -12,20 +13,22 @@ export const SearchContextProvider = ({ children }) => {
   //SearchParams
   const [searchParams, setSearchParams] = useSearchParams({
     q: "",
-    product:""
+    product: "",
   });
 
   //Value
   const selectedItem = searchParams.get("search");
-  const selectedProduct = searchParams.get("product")
+  const selectedProduct = searchParams.get("product");
+
+  
   //Provider Value
 
   const providerValue = {
     result,
     query,
     searchParams,
+    selectedItem,
     isLoading,
-    setSearch
   };
   //UseEffect
   useEffect(() => {
@@ -34,12 +37,14 @@ export const SearchContextProvider = ({ children }) => {
 
       try {
         setIsLoading(true);
-        const response = await fetch(`${url}/search/term=${searchValue}`);
+        const response = await fetch(
+          `${url}/products/search?term=${selectedItem}`
+        );
         if (!response) {
           throw new Error("The product that you are retriving doesn't exist");
         }
         const products = await response.json();
-        setResult(products.productinfo);
+        setResult(products.productPaginated);
       } catch (error) {
         console.error("Search Error:", error);
         setResult([]);
