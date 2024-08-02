@@ -8,7 +8,7 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contacts/Contact";
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
-
+import Item from "./pages/Item/Item";
 //Error Handling
 import ErrorMessage from "./util/ErrorMessage/ErrorMessage";
 
@@ -18,8 +18,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorMessage />,
     children: [
-      { path: "/",
-        element: <Home /> },
+      { path: "/", element: <Home /> },
 
       {
         path: "/products",
@@ -32,6 +31,11 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+
+      {
+        path: "item/:id",
+        element: <Item />,
       },
     ],
   },

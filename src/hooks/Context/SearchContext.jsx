@@ -20,7 +20,6 @@ export const SearchContextProvider = ({ children }) => {
   const selectedItem = searchParams.get("search");
   const selectedProduct = searchParams.get("product");
 
-  
   //Provider Value
 
   const providerValue = {
