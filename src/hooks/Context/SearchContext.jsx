@@ -4,45 +4,56 @@ import { useSearchParams } from "react-router-dom";
 export const SearchContext = createContext("");
 
 export const SearchContextProvider = ({ children }) => {
-  //States
+  // States
   const [result, setResult] = useState([]);
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  //SearchParams
+  // SearchParams
   const [searchParams, setSearchParams] = useSearchParams();
 
-  //Value
-  const searchValue = searchParams.get("search");
+  // Provider Value
+  const selectedItem = searchParams.get("search");
 
-  //UseEffect
+  // Provider Value
+  const providerValue = {
+    result,
+    query,
+    searchParams,
+    selectedItem,
+    isLoading,
+    setSearch: (term) => setSearchParams({ search: term }),
+  };
+
+  // UseEffect
   useEffect(() => {
-    const search = async () => {
-      const url = "http://localhost:5000/api";
-
-      try {
-        setIsLoading(true);
-        const response = await fetch(`${url}/search/term=${searchValue}`);
-        if (!response) {
-          throw new Error("The product that you are retriving doesn't exist");
+    if (selectedItem) {
+      const search = async () => {
+        const url = "http://localhost:5000/api";
+        try {
+          setIsLoading(true);
+          const response = await fetch(
+            `${url}/products/search?term=${selectedItem}`
+          );
+          if (!response.ok) {
+            throw new Error("The product you are retrieving doesn't exist");
+          }
+          const products = await response.json();
+          setResult(products.productPaginated);
+        } catch (error) {
+          console.error("Search Error:", error);
+          setResult([]);
+        } finally {
+          setIsLoading(false);
         }
-        const products = await response.json();
-        setResult(products.productinfo);
-      } catch (error) {
-        console.error("Search Error:", error);
-        setResult([]);
-      }
-      setIsLoading(false);
-    };
-    search();
-  }, [result]);
+      };
+      search();
+    }
+  }, [selectedItem]);
+
   return (
-    <>
-      <SearchContext.Provider
-        value={{ result, query, searchParams, isLoading, setSearchParams }}
-      >
-        {children}
-      </SearchContext.Provider>
-    </>
+    <SearchContext.Provider value={providerValue}>
+      {children}
+    </SearchContext.Provider>
   );
 };
