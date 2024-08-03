@@ -1,62 +1,59 @@
 import React, { createContext, useEffect, useState } from "react";
-
 import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext("");
 
 export const SearchContextProvider = ({ children }) => {
-  //States
+  // States
   const [result, setResult] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  //SearchParams
-  const [searchParams, setSearchParams] = useSearchParams({
-    q: "",
-    product: "",
-  });
+  // SearchParams
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  //Value
+  // Provider Value
   const selectedItem = searchParams.get("search");
-  const selectedProduct = searchParams.get("product");
 
-  //Provider Value
-
+  // Provider Value
   const providerValue = {
     result,
     query,
     searchParams,
     selectedItem,
     isLoading,
+    setSearch: (term) => setSearchParams({ search: term }),
   };
-  //UseEffect
-  useEffect(() => {
-    const search = async () => {
-      const url = "http://localhost:5000/api";
 
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `${url}/products/search?term=${selectedItem}`
-        );
-        if (!response) {
-          throw new Error("The product that you are retriving doesn't exist");
+  // UseEffect
+  useEffect(() => {
+    if (selectedItem) {
+      const search = async () => {
+        const url = "http://localhost:5000/api";
+        try {
+          setIsLoading(true);
+          const response = await fetch(
+            `${url}/products/search?term=${selectedItem}`
+          );
+          if (!response.ok) {
+            throw new Error("The product you are retrieving doesn't exist");
+          }
+          const products = await response.json();
+          setResult(products.productPaginated);
+        } catch (error) {
+          console.error("Search Error:", error);
+          setResult([]);
+        } finally {
+          setIsLoading(false);
         }
-        const products = await response.json();
-        setResult(products.productPaginated);
-      } catch (error) {
-        console.error("Search Error:", error);
-        setResult([]);
-      }
-      setIsLoading(false);
-    };
-    search();
-  }, []);
+      };
+      search();
+    }
+  }, [selectedItem]);
+
   return (
-    <>
-      <SearchContext.Provider value={providerValue}>
-        {children}
-      </SearchContext.Provider>
-    </>
+    <SearchContext.Provider value={providerValue}>
+      {children}
+    </SearchContext.Provider>
   );
 };
