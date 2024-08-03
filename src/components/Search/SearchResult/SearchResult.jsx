@@ -31,6 +31,7 @@ export default function SearchResult() {
   }, []);
   return (
     <>
+test/fix
       <h2>search = {request?.get("search")}</h2>
       {isLoading && "Loading-Component"}
       <ul>
@@ -38,6 +39,7 @@ export default function SearchResult() {
           return <li key={item._id}>item {item.productinfo?.productname}</li>;
         })}
       </ul>
+
     </>
   );
 }
