@@ -6,9 +6,6 @@ export default function SearchResult() {
   const {isLoading } = useSearch()
   return (
     <>
-
-  
-
       {isLoading ? <p>Loading....</p> :   <ul>
         <li><Link to="/item/1">Item 1</Link></li>
         <li><Link to="/item/2">Item 2</Link></li>
