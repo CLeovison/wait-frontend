@@ -11,8 +11,6 @@ export const SearchContextProvider = ({ children }) => {
 
   // SearchParams
   const [searchParams, setSearchParams] = useSearchParams();
-
-  // Provider Value
   const selectedItem = searchParams.get("search");
 
   // Provider Value
@@ -33,7 +31,7 @@ export const SearchContextProvider = ({ children }) => {
         try {
           setIsLoading(true);
           const response = await fetch(
-            `${url}/products/search?term=${selectedItem}`
+            `${url}/products?productinfo.productname=${selectedItem}`
           );
           if (!response.ok) {
             throw new Error("The product you are retrieving doesn't exist");
