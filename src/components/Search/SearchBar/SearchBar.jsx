@@ -1,17 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
-import { SearchContextProvider } from "../../../hooks/Context/SearchContext";
-import { useSearch } from "../../../hooks/Context/useSearch";
-<SearchContextProvider>
-  <SearchBar />
-</SearchContextProvider>;
+
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const {setSearchParams, result, isLoading } = useSearch()
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -23,7 +18,6 @@ export default function SearchBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearchParams(searchTerm)
   };
   return (
     <>

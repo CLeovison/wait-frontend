@@ -6,7 +6,7 @@ export const SearchContext = createContext("");
 export const SearchContextProvider = ({ children }) => {
   //States
   const [result, setResult] = useState([]);
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   //SearchParams
@@ -15,6 +15,7 @@ export const SearchContextProvider = ({ children }) => {
   //Value
   const searchValue = searchParams.get("search");
 
+  console.log(searchValue);
   //UseEffect
   useEffect(() => {
     const search = async () => {
@@ -22,7 +23,9 @@ export const SearchContextProvider = ({ children }) => {
 
       try {
         setIsLoading(true);
-        const response = await fetch(`${url}/search/term=${searchValue}`);
+        const response = await fetch(
+          `${url}/products?productinfo.productname=${searchValue}`
+        );
         if (!response) {
           throw new Error("The product that you are retriving doesn't exist");
         }
@@ -35,7 +38,7 @@ export const SearchContextProvider = ({ children }) => {
       setIsLoading(false);
     };
     search();
-  }, [result]);
+  }, []);
   return (
     <>
       <SearchContext.Provider
