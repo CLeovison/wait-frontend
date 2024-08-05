@@ -6,7 +6,6 @@ export const SearchContext = createContext("");
 export const SearchContextProvider = ({ children }) => {
   // States
   const [result, setResult] = useState([]);
-  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   // SearchParams
@@ -16,12 +15,12 @@ export const SearchContextProvider = ({ children }) => {
   // Provider Value
   const providerValue = {
     result,
-    query,
     searchParams,
     selectedItem,
     isLoading,
     setSearch: (term) => setSearchParams({ search: term }),
   };
+
 
   // UseEffect
   useEffect(() => {
