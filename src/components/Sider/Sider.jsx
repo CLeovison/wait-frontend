@@ -4,10 +4,11 @@ import { Home } from 'lucide-react'
 import { Shirt } from 'lucide-react'
 import { UsersRound } from 'lucide-react'
 import { SquareUser } from 'lucide-react'
+import Footer from '../Footer/Footer'
 export default function Sider() {
   return (
     <>
-        <aside className='bg-zinc-700 w-56 '>
+        <aside className='bg-zinc-700 w-56  '>
         <div className="logo">
                 <Link><img src="/src/assets/logo/wait.png" alt=""  className='w-28 ml-3 mt-1 mb-3'/></Link>      
         </div>
@@ -18,7 +19,10 @@ export default function Sider() {
                 <li className="p-4"><Link to="/contact" className='text-white flex flex-row items-center'><SquareUser className="mr-2.5"/>Contact</Link></li>
             </ul>
         <footer>
-         
+
+          <div>
+          <Footer />
+          </div>
         </footer>    
         </aside>
         
