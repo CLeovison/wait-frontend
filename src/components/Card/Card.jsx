@@ -9,6 +9,7 @@ export default function Card() {
         {result.map(item => <li key={item._id}>
           <h1>{item.productinfo?.productname}</h1>
           <p>{item.productinfo?.description}</p>
+          <p>{item.imageUrl}</p>
         </li>)}
       </section>
     </>

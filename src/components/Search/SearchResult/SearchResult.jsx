@@ -14,6 +14,7 @@ export default function SearchResult() {
           {result.map((item) => (
             <li key={item._id} className=" to-black">
              {item.productinfo?.productname}
+            <img src={item.imageUrl} alt="" />
             </li>
           ))}
         </ul>
