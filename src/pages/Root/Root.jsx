@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import Sider from "../../components/Sider/Sider";
 import { SearchContextProvider } from "../../hooks/Context/SearchContext";
 
+
 export default function Root() {
   return (
     <SearchContextProvider>
@@ -15,6 +16,8 @@ export default function Root() {
           <Outlet />
         </div>
       </div>
+
+
     </SearchContextProvider>
   );
 }

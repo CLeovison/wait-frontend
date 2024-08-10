@@ -1,45 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import React from "react";
+import { useSearch } from "../../../hooks/Context/useSearch";
+
 export default function SearchResult() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState([]);
-  const url = "http://localhost:5000/api";
-  const [request] = useSearchParams();
+  const { isLoading, result } = useSearch();
 
-  useEffect(() => {
-    const handleSearch = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `${url}/products?products=${request.get("search")}`
-        );
 
-        if (!response) {
-          throw new Error("The Data That You Are Getting Is Not Available");
-        }
-        const products = await response.json();
-        setQuery(products.productPaginated);
-        console.log(products.productPaginated);
-      } catch (error) {
-        console.error("Search Error:", error);
-        setQuery([]);
-      }
-      setIsLoading(false);
-    };
-
-    handleSearch();
-  }, []);
   return (
     <>
-test/fix
-      <h2>search = {request?.get("search")}</h2>
-      {isLoading && "Loading-Component"}
-      <ul>
-        {query?.map((item) => {
-          return <li key={item._id}>item {item.productinfo?.productname}</li>;
-        })}
-      </ul>
-
+      {isLoading ? (
+        <p>Loading....</p>
+      ) : (
+        <ul className="qwqw">
+          {result.map((item) => (
+            <li key={item._id} className=" to-black">
+             {item.productinfo?.productname}
+       
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   )
 }
