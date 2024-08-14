@@ -14,7 +14,7 @@ export default function SearchResult() {
           {result.map((item) => (
             <li key={item._id} className=" to-black">
              {item.productinfo?.productname}
-       
+         
             </li>
           ))}
         </ul>
