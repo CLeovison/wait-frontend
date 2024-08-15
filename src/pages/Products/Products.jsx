@@ -1,16 +1,22 @@
-import React from 'react'
-import SearchResult from '../../components/Search/SearchResult/SearchResult'
-import Card from '../../components/Card/Card'
-
-
-
+import React from "react";
+import SearchResult from "../../components/Search/SearchResult/SearchResult";
+import Card from "../../components/Card/Card";
+import { useSearch } from "../../hooks/Context/useSearch";
 
 export default function Products() {
+  const { result } = useSearch();
+  console.log(result);
 
   return (
     <>
-   <SearchResult/>
-    <Card />
+      <SearchResult />
+      {result.map((results) => (
+        <Card
+          key={results._id}
+          name={results.productinfo?.productname}
+          description={results.productinfo?.description}
+        />
+      ))}
     </>
-  )
+  );
 }
