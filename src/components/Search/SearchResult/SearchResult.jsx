@@ -7,18 +7,20 @@ export default function SearchResult() {
 
   return (
     <>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        result.map((results) => (
-          <Card
-            key={results._id}
-            image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
-            name={results.productinfo?.productname}
-           
-          />
-        ))
-      )}
+      <section className="">
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          result.map((results) => (
+            <Card
+             className=" flex"
+              key={results._id}
+              image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
+              name={results.productinfo?.productname}
+            />
+          ))
+        )}
+      </section>
     </>
   );
 }
