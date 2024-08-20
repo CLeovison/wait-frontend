@@ -1,25 +1,42 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
-import { useSearch } from "../../../hooks/Context/useSearch";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  
+  useEffect(()=>{
+    
+    if(searchParams.get("productinfo.productname") && searchParams.get("productinfo.productname") != "") {
+      setSearchTerm(searchParams.get("productinfo.productname"))
+      setIsChecked(true)
+    } else {
+      setIsChecked(false)
+    }
 
-  const { setSearch } = useSearch();
+  },[searchParams])
 
   const handleIcon = (e) => {
     e.preventDefault();
-    if (isChecked && htmlSearchField.current.value.length > 0) {
+    if (isChecked) {
       e.target.closest("form").requestSubmit(e.currentTarget);
+      if(searchTerm.trim() == "")
+        setIsChecked(false)
+    } else {
+      setIsChecked(true);
     }
-    setIsChecked((prev) => !prev);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearch(searchTerm);
+    navigate("/products")
+    if(searchTerm.trim() != "")
+      setSearchParams({"productinfo.productname": searchTerm})
   };
 
   return (
