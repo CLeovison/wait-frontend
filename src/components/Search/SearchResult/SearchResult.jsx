@@ -7,7 +7,7 @@ export default function SearchResult() {
 
   return (
     <>
-      <section className="">
+      <section className=" border-zinc-600 bg-red-300">
         {isLoading ? (
           <p>Loading...</p>
         ) : (
