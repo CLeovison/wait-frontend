@@ -7,18 +7,20 @@ export default function SearchResult() {
 
   return (
     <>
-      <section className=" border-zinc-600 bg-red-300">
+      <section className=" border-zinc-600 ">
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          result.map((results) => (
-            <Card
-             className=" flex"
-              key={results._id}
-              image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
-              name={results.productinfo?.productname}
-            />
-          ))
+          result.map((results) => {
+            return (
+              <div className="  bg-red-500" key={results._id}>
+                <Card
+                  image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
+                  name={results.productinfo?.productname}
+                />
+              </div>
+            );
+          })
         )}
       </section>
     </>
