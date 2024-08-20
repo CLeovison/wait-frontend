@@ -13,7 +13,7 @@ export default function Products() {
       {result.map((results) => (
         <Card
           key={results._id}
-          image={`api/uploads/${results.image?.filename}`}
+          image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
           name={results.productinfo?.productname}
           description={results.productinfo?.description}
         />
