@@ -13,8 +13,9 @@ export default function SearchResult() {
         ) : (
           result.map((results) => {
             return (
-              <div className="  bg-red-500" key={results._id}>
+              <div className=" border-2" key={results._id}>
                 <Card
+                  classNames="flex"
                   image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
                   name={results.productinfo?.productname}
                 />
