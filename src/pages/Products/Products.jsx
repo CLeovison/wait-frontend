@@ -13,10 +13,11 @@ export default function Products() {
       {result.map((results) => (
         <Card
           key={results._id}
+          image={results.image?.filename}
           name={results.productinfo?.productname}
           description={results.productinfo?.description}
         />
-      ))}
+      ))} 
     </>
   );
 }
