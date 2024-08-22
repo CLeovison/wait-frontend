@@ -3,7 +3,7 @@ import React from "react";
 export default function Card({ name, description, image, classNames }) {
   return (
     <>
-      <section className="  w-80 p-1">
+      <section className="w-80 p-1">
         <div className={classNames}>
           <div className="card-image">
             <img src={image} alt="" />

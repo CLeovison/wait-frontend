@@ -2,13 +2,12 @@ import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 
-
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { setSearch } = useSearch();
+  const { setSearch, result } = useSearch();
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -24,27 +23,37 @@ export default function SearchBar() {
   };
 
   return (
+
+    <>
+    
     <form className="flex items-center" onSubmit={handleSubmit}>
       {isChecked && (
         <input
           type="search"
           id="search-checkbox"
           name="search"
-          className="text-black p-1"
+          className="text-black p-1 w-52"
           ref={htmlSearchField}
           placeholder="Search Product"
           onChange={(event) => setSearchTerm(event.target.value)}
           value={searchTerm}
         />
+        
       )}
       <button type="submit" onClick={handleIcon}>
         <Search className="cursor-pointer" />
       </button>
-
-
     </form>
 
-  
+    <div className="dropdown-content bg-red-500 w-52">
+        qweqwe
+      {result.map(results =>{
+          <div className="" key={results._id}>
+            <p>{results.productinfo?.productname}</p>
+            <img src={`http://localhost:5000/api/uploads/${results.image?.filename}`} alt="" />
+          </div>
+      })}
+      </div>
+    </>
   );
-  
 }
