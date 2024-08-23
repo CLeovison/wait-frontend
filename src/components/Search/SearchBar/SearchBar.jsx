@@ -23,37 +23,35 @@ export default function SearchBar() {
   };
 
   return (
-
     <>
-    
-    <form className="flex items-center" onSubmit={handleSubmit}>
-      {isChecked && (
-        <input
-          type="search"
-          id="search-checkbox"
-          name="search"
-          className="text-black p-1 w-52"
-          ref={htmlSearchField}
-          placeholder="Search Product"
-          onChange={(event) => setSearchTerm(event.target.value)}
-          value={searchTerm}
-        />
-        
-      )}
-      <button type="submit" onClick={handleIcon}>
-        <Search className="cursor-pointer" />
-      </button>
-    </form>
+      <form className="flex items-center" onSubmit={handleSubmit}>
+        {isChecked && (
+          <input
+            type="search"
+            id="search-checkbox"
+            name="search"
+            className="text-black p-1 w-52 rounded-lg "
+            ref={htmlSearchField}
+            placeholder="Search Product"
+            onChange={(event) => setSearchTerm(event.target.value)}
+            value={searchTerm}
+          />
+        )}
 
-    <div className="dropdown-content bg-red-500 w-52">
-        qweqwe
-      {result.map(results =>{
-          <div className="" key={results._id}>
-            <p>{results.productinfo?.productname}</p>
-            <img src={`http://localhost:5000/api/uploads/${results.image?.filename}`} alt="" />
+        <button type="submit" onClick={handleIcon}>
+          <Search className="cursor-pointer" />
+        </button>
+      </form>
+
+      {
+        result.map((results) => (
+          <div
+            key={results._id}
+            className=" absolute block bg-slate-6  00 w-52"
+          >
+            {results.productinfo.productname}
           </div>
-      })}
-      </div>
+        ))}
     </>
   );
 }

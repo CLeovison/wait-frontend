@@ -6,6 +6,7 @@ export default {
     screens: {
       sm: "650px",
     },
+
   },
   plugins: [],
 };
