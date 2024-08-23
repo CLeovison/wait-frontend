@@ -43,7 +43,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {
+      { isChecked &&
         result.map((results) => (
           <div
             key={results._id}
