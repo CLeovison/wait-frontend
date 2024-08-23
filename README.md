@@ -1,2 +1,2 @@
-# Wait Clothing Official Website
+# Wait Clothing | Official Website
 
