@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
+import SearchList from "../SearchList/SearchList";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { setSearch, result } = useSearch();
+  const { setSearch } = useSearch();
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -43,15 +44,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      { isChecked &&
-        result.map((results) => (
-          <div
-            key={results._id}
-            className=" absolute block bg-slate-6  00 w-52"
-          >
-            {results.productinfo.productname}
-          </div>
-        ))}
+      {isChecked && <SearchList/>}
     </>
   );
 }
