@@ -8,8 +8,8 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { setSearch } = useSearch();
-
+  const { setSearch,result } = useSearch();
+  console.log(result)
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -23,6 +23,7 @@ export default function SearchBar() {
     setSearch(searchTerm);
   };
 
+
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
@@ -31,7 +32,7 @@ export default function SearchBar() {
             type="search"
             id="search-checkbox"
             name="search"
-            className="text-black p-1 w-52 rounded-lg "
+            className="text-black p-1 w-60 rounded-lg "
             ref={htmlSearchField}
             placeholder="Search Product"
             onChange={(event) => setSearchTerm(event.target.value)}
@@ -44,7 +45,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList/>}
+      {isChecked && <SearchList results={result}/>}
     </>
   );
 }
