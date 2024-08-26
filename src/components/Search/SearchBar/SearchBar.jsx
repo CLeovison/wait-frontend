@@ -7,9 +7,8 @@ export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const { setSearch, result } = useSearch();
 
-  const { setSearch,result } = useSearch();
-  console.log(result)
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
@@ -22,7 +21,6 @@ export default function SearchBar() {
     e.preventDefault();
     setSearch(searchTerm);
   };
-
 
   return (
     <>
@@ -37,6 +35,7 @@ export default function SearchBar() {
             placeholder="Search Product"
             onChange={(event) => setSearchTerm(event.target.value)}
             value={searchTerm}
+            onKeyDown={}
           />
         )}
 
@@ -45,7 +44,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={result}/>}
+      {isChecked && <SearchList results={result} />}
     </>
   );
 }
