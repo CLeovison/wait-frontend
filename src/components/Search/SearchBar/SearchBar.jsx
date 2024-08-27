@@ -7,7 +7,13 @@ export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const htmlSearchField = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const { setSearch, result } = useSearch();
+
+  //Context
+  const { setSearch, result, isLoading } = useSearch();
+
+  //Start of Handler Functions
+
+  const filteredList = result.filter(results => console.log(results))
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -22,6 +28,9 @@ export default function SearchBar() {
     setSearch(searchTerm);
   };
 
+  //End of Handler Function
+
+
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
@@ -35,7 +44,6 @@ export default function SearchBar() {
             placeholder="Search Product"
             onChange={(event) => setSearchTerm(event.target.value)}
             value={searchTerm}
-            onKeyDown={}
           />
         )}
 
@@ -44,7 +52,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={result} />}
+      {isChecked && <SearchList results={filteredList} isLoading={isLoading} />}
     </>
   );
 }
