@@ -9,11 +9,9 @@ export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
 
   //Context
-  const { setSearch, result, isLoading } = useSearch();
+  const { setSearch, isLoading, result } = useSearch();
 
   //Start of Handler Functions
-
-  const filteredList = result.filter(results => console.log(results))
 
   const handleIcon = (e) => {
     e.preventDefault();
@@ -28,8 +26,11 @@ export default function SearchBar() {
     setSearch(searchTerm);
   };
 
-  //End of Handler Function
+  const handleChange = (e) =>{
+    setSearchTerm(e.target.value)
+  }
 
+  //End of Handler Function
 
   return (
     <>
@@ -42,7 +43,7 @@ export default function SearchBar() {
             className="text-black p-1 w-60 rounded-lg "
             ref={htmlSearchField}
             placeholder="Search Product"
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={handleChange}
             value={searchTerm}
           />
         )}
@@ -52,7 +53,9 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={filteredList} isLoading={isLoading} />}
+      {isChecked && (
+        <SearchList results={result} isLoading={isLoading} />
+      )}
     </>
   );
 }
