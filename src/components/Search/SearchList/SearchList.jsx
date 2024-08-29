@@ -3,7 +3,7 @@ import React from "react";
 export default function SearchList({ results, isLoading }) {
   return (
     <>
-      <div className="absolute flex flex-col bg-slate-400 w-60 mt-2 rounded-lg  max-h-80">
+      <div className="absolute flex flex-col bg-slate-400 w-60 mt-2 rounded-lg  max-h-100">
         <div className="flex-col">
         {isLoading ? <p>Loading...</p> : 
           results.slice(0,5).map((list) => {
