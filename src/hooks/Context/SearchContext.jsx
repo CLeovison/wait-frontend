@@ -18,6 +18,7 @@ export const SearchContextProvider = ({ children }) => {
     searchParams,
     selectedItem,
     isLoading,
+    setResult,
     setSearch: (term) => setSearchParams({ search: term }),
   };
 

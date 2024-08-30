@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import SearchList from "../SearchList/SearchList";
@@ -10,7 +10,7 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
 
   // Context / Hooks
-  const { setSearch, isLoading } = useSearch();
+  const { setSearch, isLoading, result } = useSearch();
 
   //Start of Handler Functions
   const handleIcon = (e) => {
@@ -26,32 +26,26 @@ export default function SearchBar() {
     setSearch(searchTerm);
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     setSearchTerm(e.target.value);
+
+    try {
+      const url = "http://localhost:5000/api/products";
+      const response = await fetch(
+        `${url}?productinfo.productname=${searchTerm}`
+      );
+      const items = await response.json();
+      setItems(items)
+    } catch (error) {
+      console.log(error);
+      setItems([])
+    }
   };
 
   //End of Handler Function
 
   //UseEffect
 
-  useEffect(() =>{
-    
-    const fetchItems = async() =>{
-        try{
-          const url = "http://localhost:5000/api"
-          const response = await fetch(`${url}/products?productinfo.productname${searchTerm}`)
-          if(!response.ok){
-            throw new Error("Didn't Receive Any Data")
-          }
-          const searchItem = await response.json()
-          setItems(searchItem.productPaginated)
-        }catch(error){
-          console.log(error);
-          setItems([])
-        }
-    }
-    fetchItems()
-  },[searchTerm])
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
@@ -73,7 +67,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={items} isLoading={isLoading} />}
+      {isChecked && <SearchList results={result} isLoading={isLoading} />}
     </>
   );
 }
