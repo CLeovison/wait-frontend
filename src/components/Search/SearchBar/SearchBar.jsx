@@ -6,7 +6,7 @@ import SearchList from "../SearchList/SearchList";
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [items, setItems] = useState([])
+  const [selectedItem, setSelectedItem] = useState(-1);
   const htmlSearchField = useRef(null);
 
   // Context / Hooks
@@ -28,17 +28,13 @@ export default function SearchBar() {
 
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
+  };
 
-    try {
-      const url = "http://localhost:5000/api/products";
-      const response = await fetch(
-        `${url}?productinfo.productname=${searchTerm}`
-      );
-      const items = await response.json();
-      setItems(items)
-    } catch (error) {
-      console.log(error);
-      setItems([])
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp" && selectedItem > 0) {
+      setSelectedItem((prev) => prev - 1);
+    } else if (e.key === "ArrowDown" && selectedItem < searchTerm.length - 1) {
+      setSelectedItem((prev) => prev + 1);
     }
   };
 
@@ -59,6 +55,7 @@ export default function SearchBar() {
             placeholder="Search Product"
             onChange={handleChange}
             value={searchTerm}
+            onKeyDown={handleKeyDown}
           />
         )}
 
