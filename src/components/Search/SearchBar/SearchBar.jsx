@@ -44,14 +44,27 @@ export default function SearchBar() {
       console.log(error);
       setSearchItems([]);
     }
+
+    const filteredItems = searchItems.filter((item) =>
+      item.includes(searchTerm)
+    );
+    console.log(filteredItems);
   };
 
-
   const handleKeyDown = (e) => {
-    if (e.key === "ArrowUp" && selectedItem > 0) {
-      setSelectedItem((prev) => prev - 1);
-    } else if (e.key === "ArrowDown" && selectedItem < searchTerm.length - 1) {
-      setSelectedItem((prev) => prev + 1);
+    if (searchItems < selectedItem.length) {
+      if (e.key === "ArrowUp" && selectedItem > 0) {
+        setSelectedItem((prev) => prev - 1);
+      } else if (
+        e.key === "ArrowDown" &&
+        selectedItem < searchTerm.length - 1
+      ) {
+        setSelectedItem((prev) => prev + 1);
+      } else if (e.key === "Enter" && selectedItem >= 0) {
+        window.open(searchTerm(selectedItem).show.url);
+      }
+    } else {
+      setSelectedItem(-1);
     }
   };
 
