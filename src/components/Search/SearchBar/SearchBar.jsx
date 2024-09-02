@@ -46,7 +46,7 @@ export default function SearchBar() {
     }
 
     const filteredItems = searchItems.filter((item) =>
-      item.includes(searchTerm)
+      item.productinfo.productname.includes(searchTerm)
     );
     console.log(filteredItems);
   };
