@@ -7,10 +7,11 @@ export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState(-1);
+  const [searchItems, setSearchItems] = useState([]);
   const htmlSearchField = useRef(null);
 
   // Context / Hooks
-  const { setSearch, isLoading, result } = useSearch();
+  const { setSearch, isLoading } = useSearch();
 
   //Start of Handler Functions
   const handleIcon = (e) => {
@@ -28,7 +29,23 @@ export default function SearchBar() {
 
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
+
+    try {
+      const url = "http://localhost:5000/api";
+      const response = await fetch(
+        `${url}/products?productinfo.productname=${searchTerm}`
+      );
+      if (!response.ok) {
+        throw new Error("The Data that you are searching is not available");
+      }
+      const items = await response.json();
+      setSearchItems(items.productPaginated);
+    } catch (error) {
+      console.log(error);
+      setSearchItems([]);
+    }
   };
+
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowUp" && selectedItem > 0) {
@@ -64,7 +81,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={result} isLoading={isLoading} />}
+      {isChecked && <SearchList results={searchItems} isLoading={isLoading} />}
     </>
   );
 }
