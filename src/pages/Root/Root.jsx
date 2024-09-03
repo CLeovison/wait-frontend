@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import Header from "../../components/Header/Header";
-import Sider from "../../components/Sider/Sider";
+import Header from "../../layouts/Header/Header";
+import Sider from "../../layouts/Sider/Sider";
 import { SearchContextProvider } from "../../hooks/Context/SearchContext";
 
 

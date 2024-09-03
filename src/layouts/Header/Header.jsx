@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 //Icons
 import { Heart, UserRound, ShoppingCart } from "lucide-react";
-import SearchBar from "../Search/SearchBar/SearchBar";
+import SearchBar from "../../components/Search/SearchBar/SearchBar"
 
 export default function Header() {
   return (
