@@ -97,7 +97,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={filteredItems} isLoading={isLoading} />}
+      {isChecked && <SearchList results={filteredItems} />}
     </>
   );
 }
