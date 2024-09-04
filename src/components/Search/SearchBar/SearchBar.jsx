@@ -2,10 +2,12 @@ import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import SearchList from "../SearchList/SearchList";
+import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const debounceSearch = useDebounce(searchTerm, 1000)
   const [selectedItem, setSelectedItem] = useState(-1);
   const [searchItems, setSearchItems] = useState([]);
   const htmlSearchField = useRef(null);
@@ -33,7 +35,7 @@ export default function SearchBar() {
     try {
       const url = "http://localhost:5000/api";
       const response = await fetch(
-        `${url}/products?productinfo.productname=${searchTerm}`
+        `${url}/products?productinfo.productname=${debounceSearch}`
       );
       if (!response.ok) {
         throw new Error("The Data that you are searching is not available");
@@ -69,7 +71,7 @@ export default function SearchBar() {
 
   //UseMemo
   const filteredItems = searchItems.filter((item) =>
-    item.productinfo.productname.includes(searchTerm)
+    item.productinfo.productname.includes(debounceSearch)
   );
   console.log(filteredItems);
   
