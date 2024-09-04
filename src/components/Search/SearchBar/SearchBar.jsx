@@ -45,10 +45,7 @@ export default function SearchBar() {
       setSearchItems([]);
     }
 
-    const filteredItems = searchItems.filter((item) =>
-      item.productinfo.productname.includes(searchTerm)
-    );
-    console.log(filteredItems);
+ 
   };
 
   const handleKeyDown = (e) => {
@@ -70,8 +67,12 @@ export default function SearchBar() {
 
   //End of Handler Function
 
-  //UseEffect
-
+  //UseMemo
+  const filteredItems = searchItems.filter((item) =>
+    item.productinfo.productname.includes(searchTerm)
+  );
+  console.log(filteredItems);
+  
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
@@ -94,7 +95,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={searchItems} isLoading={isLoading} />}
+      {isChecked && <SearchList results={filteredItems} isLoading={isLoading} />}
     </>
   );
 }
