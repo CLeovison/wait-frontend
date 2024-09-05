@@ -12,8 +12,9 @@ export default function SearchBar() {
   const [searchItems, setSearchItems] = useState([]);
   const htmlSearchField = useRef(null);
 
+  
   // Context / Hooks
-  const { setSearch, isLoading } = useSearch();
+  const { setSearch } = useSearch();
 
   //Start of Handler Functions
   const handleIcon = (e) => {
@@ -73,7 +74,7 @@ export default function SearchBar() {
   const filteredItems = searchItems.filter((item) =>
     item.productinfo.productname.includes(debounceSearch)
   );
-  console.log(filteredItems);
+
   
   return (
     <>
