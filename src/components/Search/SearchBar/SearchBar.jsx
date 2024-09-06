@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import SearchList from "../SearchList/SearchList";
@@ -71,11 +71,17 @@ export default function SearchBar() {
   //End of Handler Function
 
   //UseMemo
-  const filteredItems = searchItems.filter((item) =>
-    item.productinfo.productname.includes(debounceSearch)
-  );
 
-  
+
+  const filter = useMemo( () =>{
+    const filteredItems = searchItems.filter((item) =>
+      item.productinfo.productname.includes(debounceSearch)
+    )
+    return filteredItems
+  },[searchItems, debounceSearch])
+
+  console.log(filter);
+    
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
@@ -98,7 +104,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={filteredItems} />}
+      {isChecked && <SearchList results={filter} />}
     </>
   );
 }
