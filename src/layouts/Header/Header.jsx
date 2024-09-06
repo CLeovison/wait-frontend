@@ -12,17 +12,17 @@ export default function Header() {
           <SearchBar />
         </li>
         <li className="p-4 text-white grid content-center">
-          <Link to="/wishlist">
+          <Link to="/">
             <Heart />
           </Link>
         </li>
         <li className="p-4 text-white grid content-center">
-          <Link to="/cart">
+          <Link to="/">
             <ShoppingCart />
           </Link>
         </li>
         <li className="p-4 text-white grid content-center">
-          <Link to="/profile">
+          <Link to="/">
             <UserRound />
           </Link>
         </li>

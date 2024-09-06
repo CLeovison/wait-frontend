@@ -1,12 +1,11 @@
 import React from "react";
 
-
 export default function SearchList({ results }) {
   return (
     <>
       <div className="absolute flex flex-col bg-slate-400 w-60 mt-2 rounded-lg max-h-100">
         <div className="flex-col">
-          {
+          {results.length > 0 &&
             results.slice(0, 5).map((list) => {
               return (
                 <div
@@ -21,8 +20,7 @@ export default function SearchList({ results }) {
                   />
                 </div>
               );
-            })
-          }
+            })}
         </div>
       </div>
     </>

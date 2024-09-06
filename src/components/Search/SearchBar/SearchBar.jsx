@@ -7,12 +7,11 @@ import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const debounceSearch = useDebounce(searchTerm, 1000)
+  const debounceSearch = useDebounce(searchTerm, 500);
   const [selectedItem, setSelectedItem] = useState(-1);
   const [searchItems, setSearchItems] = useState([]);
   const htmlSearchField = useRef(null);
 
-  
   // Context / Hooks
   const { setSearch } = useSearch();
 
@@ -36,7 +35,7 @@ export default function SearchBar() {
     try {
       const url = "http://localhost:5000/api";
       const response = await fetch(
-        `${url}/products?productinfo.productname=${debounceSearch}`
+        `${url}/products?productinfo.productname=${debounceSearch.toLocaleUpperCase()}`
       );
       if (!response.ok) {
         throw new Error("The Data that you are searching is not available");
@@ -47,8 +46,6 @@ export default function SearchBar() {
       console.log(error);
       setSearchItems([]);
     }
-
- 
   };
 
   const handleKeyDown = (e) => {
@@ -71,17 +68,15 @@ export default function SearchBar() {
   //End of Handler Function
 
   //UseMemo
+  const filteredItems = useMemo(
+    () =>
+      searchItems.filter((item) =>
+        item.productinfo.productname.includes(debounceSearch)
+      ),
+    [searchItems, debounceSearch]
+  );
 
-
-  const filter = useMemo( () =>{
-    const filteredItems = searchItems.filter((item) =>
-      item.productinfo.productname.includes(debounceSearch)
-    )
-    return filteredItems
-  },[searchItems, debounceSearch])
-
-  console.log(filter);
-    
+  
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
