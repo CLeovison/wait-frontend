@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import SearchList from "../SearchList/SearchList";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
+import { getProduct } from "../../../services/api/Product/product";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
@@ -33,19 +34,13 @@ export default function SearchBar() {
     setSearchTerm(e.target.value);
 
     try {
-      const url = "http://localhost:5000/api";
-      const response = await fetch(
-        `${url}/products?productinfo.productname=${debounceSearch.toLocaleUpperCase()}`
-      );
-      if (!response.ok) {
-        throw new Error("The Data that you are searching is not available");
-      }
-      const items = await response.json();
-      setSearchItems(items.productPaginated);
+      const productList = await getProduct(debounceSearch);
+      setSearchItems(productList.productPaginated);
     } catch (error) {
-      console.log(error);
-      setSearchItems([]);
+      console.error(error);
     }
+
+    
   };
 
   const handleKeyDown = (e) => {
@@ -76,7 +71,6 @@ export default function SearchBar() {
     [searchItems, debounceSearch]
   );
 
-  
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
@@ -99,7 +93,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={filter} />}
+      {isChecked && <SearchList results={filteredItems} />}
     </>
   );
 }
