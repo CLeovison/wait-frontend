@@ -1,20 +1,20 @@
 import React, { useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
-import SearchList from "../SearchList/SearchList";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
 import { getSearchProduct } from "../../../services/api/Product/product.js";
+import SearchList from "../SearchList/SearchList";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const debounceSearch = useDebounce(searchTerm, 500);
   const [selectedItem, setSelectedItem] = useState(-1);
   const [searchItems, setSearchItems] = useState([]);
-  const htmlSearchField = useRef(null);
 
   // Context / Hooks
   const { setSearch } = useSearch();
+  const debounceSearch = useDebounce(searchTerm, 500);
+  const htmlSearchField = useRef(null);
 
   //Start of Handler Functions
   const handleIcon = (e) => {
@@ -32,14 +32,12 @@ export default function SearchBar() {
 
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
-
     try {
-      const productList = await getSearchProduct(debounceSearch)
+      const productList = await getSearchProduct(debounceSearch);
       setSearchItems(productList.productPaginated);
     } catch (error) {
       console.error(error);
     }
-
   };
 
   const handleKeyDown = (e) => {
