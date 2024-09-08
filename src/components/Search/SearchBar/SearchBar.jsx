@@ -40,7 +40,6 @@ export default function SearchBar() {
       console.error(error);
     }
 
-    
   };
 
   const handleKeyDown = (e) => {
