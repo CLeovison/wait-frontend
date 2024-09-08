@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import SearchList from "../SearchList/SearchList";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
-import { getProduct } from "../../../services/api/Product/product";
+import { getSearchProduct } from "../../../services/api/Product/product.js";
 
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
@@ -34,7 +34,7 @@ export default function SearchBar() {
     setSearchTerm(e.target.value);
 
     try {
-      const productList = await getProduct(debounceSearch);
+      const productList = await getSearchProduct(debounceSearch)
       setSearchItems(productList.productPaginated);
     } catch (error) {
       console.error(error);

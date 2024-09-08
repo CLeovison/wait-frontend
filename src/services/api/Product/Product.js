@@ -1,4 +1,4 @@
-export const getProduct = async (value) => {
+export const getSearchProduct = async (value) => {
   const url = "http://localhost:5000/api";
 
   try {
