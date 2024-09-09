@@ -52,6 +52,9 @@ export default function SearchBar() {
       } else if (e.key === "Enter" && selectedItem >= 0) {
         window.open(searchTerm(selectedItem).show.url);
       }
+      else if(e.key === "Escape"){
+        setSelectedItem((prev) => prev + 1);
+      }
     } else {
       setSelectedItem(-1);
     }
@@ -81,7 +84,7 @@ export default function SearchBar() {
             placeholder="Search Product"
             onChange={handleChange}
             value={searchTerm}
-            onKeyDown={handleKeyDown}
+            onKeyDown={e => console.log(e)}
           />
         )}
 
