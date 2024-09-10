@@ -10,6 +10,9 @@ export default function Products() {
   const fetchProduct = async () =>{
     try{
       const response = await getAllProduct()
+      if(!response.ok){
+        throw new Error("The Product That You Are Getting is not Available")
+      }
       setProducts(response.productPaginated)
     }catch(error){
       console.error(error);

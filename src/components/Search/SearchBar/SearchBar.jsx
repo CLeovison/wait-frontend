@@ -41,8 +41,9 @@ export default function SearchBar() {
   };
 
   const handleKeyDown = (e) => {
+    let { key } = e.target;
     if (searchItems < selectedItem.length) {
-      if (e.key === "ArrowUp" && selectedItem > 0) {
+      if (key === "ArrowUp" && selectedItem > 0) {
         setSelectedItem((prev) => prev - 1);
       } else if (
         e.key === "ArrowDown" &&
@@ -59,6 +60,7 @@ export default function SearchBar() {
       setSelectedItem(-1);
     }
   };
+
 
   //End of Handler Function
 
@@ -84,7 +86,6 @@ export default function SearchBar() {
             placeholder="Search Product"
             onChange={handleChange}
             value={searchTerm}
-            onKeyDown={e => console.log(e)}
           />
         )}
 
