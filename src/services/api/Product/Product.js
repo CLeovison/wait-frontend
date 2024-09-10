@@ -3,7 +3,7 @@ const url = "http://localhost:5000/api";
 export const getSearchProduct = async (value) => {
   try {
     const response = await fetch(
-      `${url}/products?productinfo.productname=${value}`
+      `${url}/products?productinfo.productname=${value.toLocaleUpperCase()}`
     );
     if (!response.ok) {
       throw new Error("The Product that you searching was not fetching");
