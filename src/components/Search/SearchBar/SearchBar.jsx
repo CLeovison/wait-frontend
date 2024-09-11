@@ -8,7 +8,7 @@ import SearchList from "../SearchList/SearchList";
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedItem, setSelectedItem] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState(0);
   const [searchItems, setSearchItems] = useState([]);
 
   // Context / Hooks
@@ -40,27 +40,20 @@ export default function SearchBar() {
     }
   };
 
-  const handleKeyDown = (e) => {
-    let { key } = e.target;
-    if (searchItems < selectedItem.length) {
-      if (key === "ArrowUp" && selectedItem > 0) {
-        setSelectedItem((prev) => prev - 1);
-      } else if (
-        e.key === "ArrowDown" &&
-        selectedItem < searchTerm.length - 1
-      ) {
-        setSelectedItem((prev) => prev + 1);
-      } else if (e.key === "Enter" && selectedItem >= 0) {
-        window.open(searchTerm(selectedItem).show.url);
-      }
-      else if(e.key === "Escape"){
-        setSelectedItem((prev) => prev + 1);
-      }
-    } else {
-      setSelectedItem(-1);
+  const handleKey = (e) => {
+    let key = e.key;
+    if (key === "ArrowDown") {
+      setSearchTerm(searchItems[selectedItem].productinfo.productname);
+      setSelectedItem(selectedItem + 1);
+    }
+    if(key === "ArrowUp"){
+      setSearchTerm(searchItems[selectedItem].productinfo.productname);
+      setSelectedItem(selectedItem + 1);
+    }
+    if (selectedItem > searchItems.length - 1) {
+      selectedItem(0);
     }
   };
-
 
   //End of Handler Function
 
@@ -86,6 +79,7 @@ export default function SearchBar() {
             placeholder="Search Product"
             onChange={handleChange}
             value={searchTerm}
+            onKeyDown={handleKey}
           />
         )}
 
