@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
-import { getSearchProduct } from "../../../services/api/Product/product.js";
+import { getSearchProduct } from "../../../services/api/Product/Product.js";
 import SearchList from "../SearchList/SearchList";
 
 export default function SearchBar() {
@@ -13,7 +13,7 @@ export default function SearchBar() {
 
   // Context / Hooks
   const { setSearch } = useSearch();
-  const debounceSearch = useDebounce(searchTerm, 500);
+  const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
 
   //Start of Handler Functions
@@ -41,19 +41,19 @@ export default function SearchBar() {
   };
 
   const handleKeyDown = (e) => {
-    if (searchItems < selectedItem.length) {
-      if (e.key === "ArrowUp" && selectedItem > 0) {
-        setSelectedItem((prev) => prev - 1);
-      } else if (
-        e.key === "ArrowDown" &&
-        selectedItem < searchTerm.length - 1
-      ) {
-        setSelectedItem((prev) => prev + 1);
-      } else if (e.key === "Enter" && selectedItem >= 0) {
-        window.open(searchTerm(selectedItem).show.url);
-      }
-    } else {
-      setSelectedItem(-1);
+    switch (e.key) {
+      case "ArrowDown":
+        console.log("Shit");
+        break;
+      case "ArrowUp":
+        console.log("Fucks");
+        break;
+      case "Enter":
+        console.log("Damn")
+        break;
+      case "Escape":
+        console.log("Esc")
+        break;
     }
   };
 

@@ -6,7 +6,7 @@ import SearchBar from "../../components/Search/SearchBar/SearchBar"
 
 export default function Header() {
   return (
-    <nav className="bg-zinc-700 h-20 flex flex-row gap-2 justify-end items-center">
+    <nav className="bg-zinc-700 h-20 flex flex-row gap-2 justify-end items-center w-full">
       <ul className="flex">
         <li className="p-4 text-white inline-block">
           <SearchBar />
