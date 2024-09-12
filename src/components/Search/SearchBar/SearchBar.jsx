@@ -8,7 +8,7 @@ import SearchList from "../SearchList/SearchList";
 export default function SearchBar() {
   const [isChecked, setIsChecked] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedItem, setSelectedItem] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState(0);
   const [searchItems, setSearchItems] = useState([]);
 
   // Context / Hooks
@@ -43,16 +43,16 @@ export default function SearchBar() {
   const handleKeyDown = (e) => {
     switch (e.key) {
       case "ArrowDown":
-        console.log("Shit");
+        setSearchTerm(searchItems[selectedItem].productinfo.productname)
+        setSelectedItem(selectedItem + 1)
         break;
       case "ArrowUp":
-        console.log("Fucks");
+        setSearchTerm(searchItems[selectedItem].productinfo.productname)
+        setSelectedItem(selectedItem - 1)
         break;
       case "Enter":
-        console.log("Damn")
         break;
       case "Escape":
-        console.log("Esc")
         break;
     }
   };
