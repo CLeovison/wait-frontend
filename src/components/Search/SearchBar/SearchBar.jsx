@@ -30,11 +30,11 @@ export default function SearchBar() {
     switch (e.key) {
       case "ArrowDown":
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        setSelectedItem(selectedItem + 1);
+        setSelectedItem(prev => prev + 1);
         break;
       case "ArrowUp":
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        setSelectedItem(selectedItem - 1);
+        setSelectedItem(prev => prev - 1);
         break;
       case "Enter":
         break;
