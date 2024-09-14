@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, {   useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
@@ -30,11 +30,11 @@ export default function SearchBar() {
     switch (e.key) {
       case "ArrowDown":
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        setSelectedItem(prev => prev + 1);
+        setSelectedItem((prev) => prev + 1);
         break;
       case "ArrowUp":
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        setSelectedItem(prev => prev - 1);
+        setSelectedItem((prev) => prev - 1);
         break;
       case "Enter":
         break;
@@ -51,23 +51,15 @@ export default function SearchBar() {
 
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
-    try {
-      const productList = await getSearchProduct(debounceSearch);
-      setSearchItems(productList.productPaginated);
-    } catch (error) {
-      console.error(error);
-    }
+    const productList = await getSearchProduct(debounceSearch);
+    setSearchItems(productList.productPaginated);
   };
 
   //End of Handler Function
 
   //UseMemo
-  const filteredItems = useMemo(
-    () =>
-      searchItems.filter((item) =>
-        item.productinfo.productname.includes(debounceSearch)
-      ),
-    [searchItems, debounceSearch]
+  const filteredItems = searchItems.filter((item) =>
+    item.productinfo.productname.includes(debounceSearch)
   );
 
   return (
