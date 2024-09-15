@@ -1,9 +1,10 @@
-import React, {   useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
 import { getSearchProduct } from "../../../services/api/Product/Product.js";
 import SearchList from "../SearchList/SearchList";
+import Tooltip from "../../Tooltip/Tooltip.jsx";
 
 export default function SearchBar() {
   //States
@@ -43,21 +44,19 @@ export default function SearchBar() {
         break;
     }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSearch(searchTerm);
-  };
-
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
     const productList = await getSearchProduct(debounceSearch);
     setSearchItems(productList.productPaginated);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearch(searchTerm);
+  };
+
   //End of Handler Function
 
-  //UseMemo
   const filteredItems = searchItems.filter((item) =>
     item.productinfo.productname.includes(debounceSearch)
   );
@@ -80,7 +79,9 @@ export default function SearchBar() {
         )}
 
         <button type="submit" onClick={handleIcon}>
-          <Search className="cursor-pointer" />
+          <Tooltip tooltip={"Search"}>
+            <Search className="cursor-pointer" />
+          </Tooltip>
         </button>
       </form>
 

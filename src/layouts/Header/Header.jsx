@@ -7,12 +7,10 @@ import Tooltip from "../../components/Tooltip/Tooltip";
 
 export default function Header() {
   return (
-    <nav className="bg-zinc-700 h-20 flex flex-row gap-2 justify-end items-center w-full">
+    <nav className="bg-zinc-700 h-20 flex flex-row gap-2 justify-end items-center w-full ">
       <ul className="flex">
         <li className="p-4 text-white inline-block">
-          <Tooltip tooltip={"Search Box"}>
             <SearchBar />
-          </Tooltip>
         </li>
         <li className="p-4 text-white grid content-center">
           <Link to="/">
@@ -28,7 +26,7 @@ export default function Header() {
             </Tooltip>
           </Link>
         </li>
-        <li className="p-4 text-white grid content-center">
+        <li className="p-4 text-white grid content-center mr-3">
           <Link to="/">
             <Tooltip tooltip={"Profile"}>
               <UserRound />
