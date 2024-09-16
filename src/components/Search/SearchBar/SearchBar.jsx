@@ -47,14 +47,13 @@ export default function SearchBar() {
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
     const productList = await getSearchProduct(debounceSearch);
-    setSearchItems(productList.productPaginated);
+    e.target.value === '' ? setSearchItems([]) : setSearchItems(productList.productPaginated);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearch(searchTerm);
   };
-
   //End of Handler Function
 
   const filteredItems = searchItems.filter((item) =>
