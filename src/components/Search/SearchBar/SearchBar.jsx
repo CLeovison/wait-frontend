@@ -49,7 +49,9 @@ export default function SearchBar() {
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
     const productList = await getSearchProduct(debounceSearch);
-    e.target.value === '' ? setSearchItems([]) : setSearchItems(productList.productPaginated);
+    e.target.value === ""
+      ? setSearchItems([])
+      : setSearchItems(productList.productPaginated);
   };
 
   const handleSubmit = (e) => {
@@ -58,9 +60,16 @@ export default function SearchBar() {
   };
   //End of Handler Function
 
-  const filteredItems = searchItems.filter((item) =>
-    item.productinfo.productname.includes(debounceSearch)
-  );
+  const filteredItems = searchItems.filter((item) => {
+    if (item.productinfo.productname.includes(debounceSearch) === "") {
+      setSearchItems([]);
+    } else {
+      return item.productinfo.productname
+        .toLocaleLowerCase()
+        .includes(debounceSearch);
+    }
+  });
+  console.log(debounceSearch)
 
   return (
     <>
