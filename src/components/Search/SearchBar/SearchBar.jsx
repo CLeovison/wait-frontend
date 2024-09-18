@@ -31,6 +31,7 @@ export default function SearchBar() {
     switch (e.key) {
       case "ArrowDown":
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
+        console.log(selectedItem);
         setSelectedItem((prev) => prev + 1);
         break;
       case "ArrowUp":
@@ -59,16 +60,14 @@ export default function SearchBar() {
   };
   //End of Handler Function
 
-  const filteredItems = searchItems.filter((item) => {
-    if (item.productinfo.productname.includes(debounceSearch) !== searchTerm) {
-      return item.productinfo.productname
-        .toLocaleLowerCase()
-        .includes(debounceSearch);
-    } else {
-      setSearchItems([]);
-    }
-  });
-  console.log(filteredItems);
+  const filteredItems = searchItems.filter((item) =>
+    item.productinfo.productname.includes(debounceSearch) === debounceSearch
+      ? searchItems([])
+      : item.productinfo.productname
+          .toLocaleLowerCase()
+          .includes(debounceSearch)
+  );
+  console.log(searchItems);
 
   return (
     <>
