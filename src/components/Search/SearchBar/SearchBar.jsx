@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
@@ -18,26 +18,41 @@ export default function SearchBar() {
   const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
 
+  //UseEffect
+  useEffect(() => {
+    const fetchSearchItems = async () => {
+      if (debounceSearch) {
+        const productList = await getSearchProduct(debounceSearch);
+        setSearchItems(productList.productPaginated);
+      } else {
+        setSearchItems([]);
+      }
+    };
+    fetchSearchItems();
+  }, [debounceSearch]);
+
   //Start of Handler Functions
   const handleIcon = (e) => {
     e.preventDefault();
     if (isChecked && htmlSearchField.current.value.length > 0) {
       e.target.closest("form").requestSubmit(e.currentTarget);
     }
+
     setIsChecked((prev) => !prev);
+    if (!isChecked) {
+      setTimeout(() => htmlSearchField.current.focus(), 0);
+    }
   };
 
   const handleKeyDown = (e) => {
     switch (e.key) {
       case "ArrowDown":
+        setSelectedItem((prev) => Math.min(prev + 1, searchItems.length - 1));
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        console.log(selectedItem);
-        setSelectedItem((prev) => prev + 1);
         break;
       case "ArrowUp":
+        setSelectedItem((prev) => Math.max(prev - 1, 0));
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        setSelectedItem((prev) => prev - 1);
-
         break;
       case "Enter":
         break;
@@ -46,12 +61,8 @@ export default function SearchBar() {
         break;
     }
   };
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     setSearchTerm(e.target.value);
-    const productList = await getSearchProduct(debounceSearch);
-    e.target.value === ""
-      ? setSearchItems([])
-      : setSearchItems(productList.productPaginated);
   };
 
   const handleSubmit = (e) => {
@@ -61,13 +72,11 @@ export default function SearchBar() {
   //End of Handler Function
 
   const filteredItems = searchItems.filter((item) =>
-    item.productinfo.productname.includes(debounceSearch) === debounceSearch
-      ? searchItems([])
-      : item.productinfo.productname
-          .toLocaleLowerCase()
-          .includes(debounceSearch)
+    item.productinfo.productname
+      .toLocaleLowerCase()
+      .includes(debounceSearch.toLocaleLowerCase())
   );
-  console.log(searchItems);
+  console.log(filteredItems);
 
   return (
     <>
