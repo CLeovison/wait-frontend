@@ -78,11 +78,20 @@ export default function SearchBar() {
   
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
-    const productList = await getSearchProduct(debounceSearch);
-    e.target.value === ""
+  };
+
+  useEffect(()=> {
+    const searchProduct = async () => {
+      const productList = await getSearchProduct(debounceSearch);
+
+      debounceSearch === ""
       ? setSearchItems([])
       : setSearchItems(productList.productPaginated);
-  };
+    }
+
+    searchProduct();
+    
+  }, [debounceSearch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
