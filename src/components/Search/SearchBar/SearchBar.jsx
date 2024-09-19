@@ -19,7 +19,6 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
 
   //UseEffect
-
   useEffect(() => {
     const fetchSearchItems = async () => {
       if (debounceSearch) {
@@ -29,7 +28,6 @@ export default function SearchBar() {
         setSearchItems([]);
       }
     };
-
     fetchSearchItems();
   }, [debounceSearch]);
 
@@ -39,20 +37,22 @@ export default function SearchBar() {
     if (isChecked && htmlSearchField.current.value.length > 0) {
       e.target.closest("form").requestSubmit(e.currentTarget);
     }
+
     setIsChecked((prev) => !prev);
+    if (!isChecked) {
+      setTimeout(() => htmlSearchField.current.focus(), 0);
+    }
   };
 
   const handleKeyDown = (e) => {
     switch (e.key) {
       case "ArrowDown":
+        setSelectedItem((prev) => Math.min(prev + 1, searchItems.length - 1));
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        console.log(selectedItem);
-        setSelectedItem((prev) => prev + 1);
         break;
       case "ArrowUp":
+        setSelectedItem((prev) => Math.max(prev - 1, 0));
         setSearchTerm(searchItems[selectedItem].productinfo.productname);
-        setSelectedItem((prev) => prev - 1);
-
         break;
       case "Enter":
         break;
@@ -76,7 +76,7 @@ export default function SearchBar() {
       .toLocaleLowerCase()
       .includes(debounceSearch.toLocaleLowerCase())
   );
-  console.log(searchItems);
+  console.log(filteredItems);
 
   return (
     <>
