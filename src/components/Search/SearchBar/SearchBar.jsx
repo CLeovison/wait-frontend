@@ -9,7 +9,7 @@ import Tooltip from "../../Tooltip/Tooltip.jsx";
 export default function SearchBar() {
   //States
   const [isChecked, setIsChecked] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState({term: "", flag:true});
   const [selectedItem, setSelectedItem] = useState(0);
   const [searchItems, setSearchItems] = useState([]);
 
@@ -53,7 +53,10 @@ export default function SearchBar() {
       case "ArrowDown":
         setSelectedItem((prev) => {
           const newIndex = Math.min(prev + 1, searchItems.length - 1);
-          setSearchTerm(searchItems[newIndex]?.productinfo?.productname || "");
+          setSearchTerm({
+            term: searchItems[newIndex]?.productinfo?.productname || "",
+            flag: false
+          });
           console.log(newIndex)
           return newIndex;
         });
@@ -61,7 +64,10 @@ export default function SearchBar() {
       case "ArrowUp":
         setSelectedItem((prev) => {
           const newIndex = Math.max(prev - 1, 0);
-          setSearchTerm(searchItems[newIndex]?.productinfo?.productname || "");
+          setSearchTerm({
+            term: searchItems[newIndex]?.productinfo?.productname || "",
+            flag: false
+          });
           console.log(newIndex);
           
           return newIndex;
@@ -77,19 +83,20 @@ export default function SearchBar() {
   
   
   const handleChange = async (e) => {
-    setSearchTerm(e.target.value);
+    setSearchTerm({term: e.target.value, flag:true});
   };
 
   useEffect(()=> {
     const searchProduct = async () => {
-      const productList = await getSearchProduct(debounceSearch);
+      const productList = await getSearchProduct(debounceSearch.term);
 
-      debounceSearch === ""
+      debounceSearch.term === ""
       ? setSearchItems([])
       : setSearchItems(productList.productPaginated);
     }
 
-    searchProduct();
+    console.log("flag:", debounceSearch.flag)
+    if(debounceSearch.flag) searchProduct();
     
   }, [debounceSearch]);
 
@@ -99,11 +106,12 @@ export default function SearchBar() {
   };
   //End of Handler Function
 
-  const filteredItems = searchItems.filter((item) => {
-    return item.productinfo.productname
-      .toLocaleLowerCase()
-      .includes(debounceSearch.toLocaleLowerCase());
-  });
+  // might not be needed
+  // const filteredItems = searchItems.filter((item) => {
+  //   return item.productinfo.productname
+  //     .toLocaleLowerCase()
+  //     .includes(debounceSearch.term.toLocaleLowerCase());
+  // });
 
   return (
     <>
@@ -117,7 +125,7 @@ export default function SearchBar() {
             ref={htmlSearchField}
             placeholder="Search Product"
             onChange={handleChange}
-            value={searchTerm}
+            value={searchTerm.term}
             onKeyDown={handleKeyDown}
           />
         )}
@@ -129,7 +137,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={filteredItems} />}
+      {isChecked && <SearchList results={searchItems} />}
     </>
   );
 }
