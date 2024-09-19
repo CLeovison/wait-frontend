@@ -19,17 +19,24 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
 
   //UseEffect
+
   useEffect(() => {
-    const fetchSearchItems = async () => {
-      if (debounceSearch) {
-        const productList = await getSearchProduct(debounceSearch);
-        setSearchItems(productList.productPaginated);
-      } else {
-        setSearchItems([]);
+    const handleClickOutside = (e) => {
+      if (
+        htmlSearchField.current &&
+        !htmlSearchField.current.contains(e.target)
+      ) {
+        setIsChecked(false);
       }
     };
-    fetchSearchItems();
-  }, [debounceSearch]);
+
+    isChecked
+      ? document.addEventListener("mousedown", handleClickOutside)
+      : document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isChecked]);
+  //End of UseEffect
 
   //Start of Handler Functions
   const handleIcon = (e) => {
@@ -39,20 +46,26 @@ export default function SearchBar() {
     }
 
     setIsChecked((prev) => !prev);
-    if (!isChecked) {
-      setTimeout(() => htmlSearchField.current.focus(), 0);
-    }
   };
 
   const handleKeyDown = (e) => {
     switch (e.key) {
       case "ArrowDown":
-        setSelectedItem((prev) => Math.min(prev + 1, searchItems.length - 1));
-        setSearchTerm(searchItems[selectedItem].productinfo.productname);
+        setSelectedItem((prev) => {
+          const newIndex = Math.min(prev + 1, searchItems.length - 1);
+          setSearchTerm(searchItems[newIndex]?.productinfo?.productname || "");
+          console.log(newIndex)
+          return newIndex;
+        });
         break;
       case "ArrowUp":
-        setSelectedItem((prev) => Math.max(prev - 1, 0));
-        setSearchTerm(searchItems[selectedItem].productinfo.productname);
+        setSelectedItem((prev) => {
+          const newIndex = Math.max(prev - 1, 0);
+          setSearchTerm(searchItems[newIndex]?.productinfo?.productname || "");
+          console.log(newIndex);
+          
+          return newIndex;
+        });
         break;
       case "Enter":
         break;
@@ -61,8 +74,14 @@ export default function SearchBar() {
         break;
     }
   };
-  const handleChange = (e) => {
+  
+  
+  const handleChange = async (e) => {
     setSearchTerm(e.target.value);
+    const productList = await getSearchProduct(debounceSearch);
+    e.target.value === ""
+      ? setSearchItems([])
+      : setSearchItems(productList.productPaginated);
   };
 
   const handleSubmit = (e) => {
@@ -71,12 +90,11 @@ export default function SearchBar() {
   };
   //End of Handler Function
 
-  const filteredItems = searchItems.filter((item) =>
-    item.productinfo.productname
+  const filteredItems = searchItems.filter((item) => {
+    return item.productinfo.productname
       .toLocaleLowerCase()
-      .includes(debounceSearch.toLocaleLowerCase())
-  );
-  console.log(filteredItems);
+      .includes(debounceSearch.toLocaleLowerCase());
+  });
 
   return (
     <>
@@ -95,7 +113,7 @@ export default function SearchBar() {
           />
         )}
 
-        <button type="submit" onClick={handleIcon}>
+        <button type="submit" onClick={handleIcon} aria-label="Search">
           <Tooltip tooltip={"Search"}>
             <Search className="cursor-pointer" />
           </Tooltip>
