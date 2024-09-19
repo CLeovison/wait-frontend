@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useSearch } from "../../../hooks/Context/useSearch";
 import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
@@ -17,6 +17,21 @@ export default function SearchBar() {
   const { setSearch } = useSearch();
   const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
+
+  //UseEffect
+
+  useEffect(() => {
+    const fetchSearchItems = async () => {
+      if (debounceSearch) {
+        const productList = await getSearchProduct(debounceSearch);
+        setSearchItems(productList.productPaginated);
+      } else {
+        setSearchItems([]);
+      }
+    };
+
+    fetchSearchItems();
+  }, [debounceSearch]);
 
   //Start of Handler Functions
   const handleIcon = (e) => {
@@ -46,12 +61,8 @@ export default function SearchBar() {
         break;
     }
   };
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     setSearchTerm(e.target.value);
-    const productList = await getSearchProduct(debounceSearch);
-    e.target.value === ""
-      ? setSearchItems([])
-      : setSearchItems(productList.productPaginated);
   };
 
   const handleSubmit = (e) => {
@@ -61,11 +72,9 @@ export default function SearchBar() {
   //End of Handler Function
 
   const filteredItems = searchItems.filter((item) =>
-    item.productinfo.productname.includes(debounceSearch) === debounceSearch
-      ? searchItems([])
-      : item.productinfo.productname
-          .toLocaleLowerCase()
-          .includes(debounceSearch)
+    item.productinfo.productname
+      .toLocaleLowerCase()
+      .includes(debounceSearch.toLocaleLowerCase())
   );
   console.log(searchItems);
 
