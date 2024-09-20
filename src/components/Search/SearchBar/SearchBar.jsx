@@ -18,8 +18,9 @@ export default function SearchBar() {
   const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
 
-  //UseEffect
+  //Start of UseEffect
 
+  //UseEffect for the SearchBar HandleClick Outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -36,6 +37,21 @@ export default function SearchBar() {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isChecked]);
+
+  //UseEffect for Debounce
+  useEffect(()=> {
+    const searchProduct = async () => {
+      const productList = await getSearchProduct(debounceSearch.term);
+
+      debounceSearch.term === ""
+      ? setSearchItems([])
+      : setSearchItems(productList.productPaginated);
+    }
+    console.log("flag:", debounceSearch.flag)
+    if(debounceSearch.flag) searchProduct();
+    
+  }, [debounceSearch]);
+
   //End of UseEffect
 
   //Start of Handler Functions
@@ -86,19 +102,6 @@ export default function SearchBar() {
     setSearchTerm({term: e.target.value, flag:true});
   };
 
-  useEffect(()=> {
-    const searchProduct = async () => {
-      const productList = await getSearchProduct(debounceSearch.term);
-
-      debounceSearch.term === ""
-      ? setSearchItems([])
-      : setSearchItems(productList.productPaginated);
-    }
-
-    console.log("flag:", debounceSearch.flag)
-    if(debounceSearch.flag) searchProduct();
-    
-  }, [debounceSearch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
