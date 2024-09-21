@@ -9,8 +9,8 @@ import Tooltip from "../../Tooltip/Tooltip.jsx";
 export default function SearchBar() {
   //States
   const [isChecked, setIsChecked] = useState(false);
-  const [searchTerm, setSearchTerm] = useState({term: "", flag:true});
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [searchTerm, setSearchTerm] = useState({ term: "", flag: true });
+  const [selectedItem, setSelectedItem] = useState(-1);
   const [searchItems, setSearchItems] = useState([]);
 
   // Context / Hooks
@@ -36,6 +36,19 @@ export default function SearchBar() {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isChecked]);
+
+  useEffect(() => {
+    const searchProduct = async () => {
+      const productList = await getSearchProduct(debounceSearch.term);
+
+      debounceSearch.term === ""
+        ? setSearchItems([])
+        : setSearchItems(productList.productPaginated);
+    };
+
+    console.log("flag:", debounceSearch.flag);
+    if (debounceSearch.flag) searchProduct();
+  }, [debounceSearch]);
   //End of UseEffect
 
   //Start of Handler Functions
@@ -52,53 +65,47 @@ export default function SearchBar() {
     switch (e.key) {
       case "ArrowDown":
         setSelectedItem((prev) => {
-          const newIndex = Math.min(prev + 1, searchItems.length - 1);
+          const newIndex = Math.min((prev + 1) % searchItems.length);
+
           setSearchTerm({
-            term: searchItems[newIndex]?.productinfo?.productname || "",
-            flag: false
+            term: searchItems[newIndex]?.productinfo?.productname.trim() || "",
+            flag: false,
           });
-          console.log(newIndex)
+
           return newIndex;
         });
+
         break;
+
       case "ArrowUp":
         setSelectedItem((prev) => {
-          const newIndex = Math.max(prev - 1, 0);
-          setSearchTerm({
-            term: searchItems[newIndex]?.productinfo?.productname || "",
-            flag: false
-          });
-          console.log(newIndex);
+          const newIndex = Math.max(
+            (prev + searchItems.length - 1) % searchItems.length
+          );
+
           
+          setSearchTerm({
+            term: searchItems[newIndex]?.productinfo?.productname.trim() || "",
+            flag: false,
+          });
+
           return newIndex;
         });
         break;
+
       case "Enter":
+        e.preventDefault()
         break;
+
       case "Escape":
         setIsChecked(false);
         break;
     }
   };
-  
-  
+
   const handleChange = async (e) => {
-    setSearchTerm({term: e.target.value, flag:true});
+    setSearchTerm({ term: e.target.value, flag: true });
   };
-
-  useEffect(()=> {
-    const searchProduct = async () => {
-      const productList = await getSearchProduct(debounceSearch.term);
-
-      debounceSearch.term === ""
-      ? setSearchItems([])
-      : setSearchItems(productList.productPaginated);
-    }
-
-    console.log("flag:", debounceSearch.flag)
-    if(debounceSearch.flag) searchProduct();
-    
-  }, [debounceSearch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
