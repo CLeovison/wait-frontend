@@ -18,34 +18,25 @@ export default function SearchBar() {
   const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
 
-  //Start of UseEffect
-
-  //UseEffect for the SearchBar HandleClick Outside
   useEffect(() => {
+
     const searchProduct = async () => {
       const productList = await getSearchProduct(debounceSearch.term);
-
-      debounceSearch.term === ""
-        ? setSearchItems([])
-        : setSearchItems(productList.productPaginated);
+      debounceSearch.term === "" ? setSearchItems([]) : setSearchItems(productList.productPaginated);
     };
 
     if (debounceSearch.flag) searchProduct();
 
     const handleClickOutside = (e) => {
-      if (
-        htmlSearchField.current &&
-        !htmlSearchField.current.contains(e.target)
-      ) {
+      if (htmlSearchField.current && !htmlSearchField.current.contains(e.target)) {
         setIsChecked(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
+    
   }, [isChecked, debounceSearch]);
 
-  //End of UseEffect
 
   //Start of Handler Functions
   const handleIcon = (e) => {
@@ -61,23 +52,15 @@ export default function SearchBar() {
       case "ArrowDown":
         setSelectedItem((prev) => {
           const newIndex = Math.min((prev + 1) % searchItems.length);
-          setSearchTerm({
-            term: searchItems[newIndex]?.productinfo?.productname.trim() || "",
-            flag: false,
-          });
+          setSearchTerm({term: searchItems[newIndex]?.productinfo?.productname.trim() || "", flag: false, });
           return newIndex;
         });
         break;
 
       case "ArrowUp":
         setSelectedItem((prev) => {
-          const newIndex = Math.max(
-            (prev + searchItems.length - 1) % searchItems.length
-          );
-          setSearchTerm({
-            term: searchItems[newIndex]?.productinfo?.productname.trim() || "",
-            flag: false,
-          });
+          const newIndex = Math.max((prev + searchItems.length - 1) % searchItems.length);
+          setSearchTerm({term: searchItems[newIndex]?.productinfo?.productname.trim() || "", flag: false,});
           return newIndex;
         });
         break;
