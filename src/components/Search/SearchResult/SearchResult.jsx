@@ -7,21 +7,19 @@ export default function SearchResult() {
 
   return (
     <>
-      <section className=" w-96 flex">
+      <section className="grid grid-cols-4 gap-4 w-full">
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          result.map((results) => {
-            return (
-              <div className="" key={results._id}>
-                <Card
-                  classNames="flex flex-col items-center"
-                  image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
-                  name={results.productinfo?.productname}
-                />
-              </div>
-            );
-          })
+          result.map((results) => (
+            <div key={results._id}>
+              <Card
+                classNames="flex flex-col items-center"
+                image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
+                name={results.productinfo?.productname}
+              />
+            </div>
+          ))
         )}
       </section>
     </>
