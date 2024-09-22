@@ -37,7 +37,6 @@ export default function SearchBar() {
     
   }, [isChecked, debounceSearch]);
 
-
   //Start of Handler Functions
   const handleIcon = (e) => {
     e.preventDefault();
@@ -66,7 +65,7 @@ export default function SearchBar() {
         break;
 
       case "Enter":
-
+        e.preventDefault()
         break;
 
       case "Escape":
@@ -83,7 +82,7 @@ export default function SearchBar() {
     e.preventDefault();
     setSearch(searchTerm);
   };
-
+  //End of Handler Functions
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>
