@@ -7,15 +7,15 @@ export default function SearchResult() {
 
   return (
     <>
-      <section className=" w-96 bg-yellow-800 ">
+      <section className=" w-96 flex">
         {isLoading ? (
           <p>Loading...</p>
         ) : (
           result.map((results) => {
             return (
-              <div className=" " key={results._id}>
+              <div className="" key={results._id}>
                 <Card
-                  classNames="flex justify-end"
+                  classNames="flex flex-col items-center"
                   image={`http://localhost:5000/api/uploads/${results.image?.filename}`}
                   name={results.productinfo?.productname}
                 />

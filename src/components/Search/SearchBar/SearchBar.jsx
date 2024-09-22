@@ -66,7 +66,7 @@ export default function SearchBar() {
         break;
 
       case "Enter":
-        e.preventDefault();
+
         break;
 
       case "Escape":
