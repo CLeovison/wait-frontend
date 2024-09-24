@@ -11,11 +11,12 @@ export default function Products() {
         throw new Error("This is not working");
       }
       const product = await response.json();
-
+z
       setAllProduct(product.productPaginated);
     };
     getAllProduct();
   }, []);
+
 
   return (
     <>
