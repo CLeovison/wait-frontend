@@ -17,13 +17,13 @@ export default function Products() {
     getAllProduct();
   }, []);
 
-
-
   return (
     <>
-      {allProduct.map((products) => (
-        <Card cards={products} />
-      ))}
+      <section className="grid grid-cols-4">
+        {allProduct.map((products) => (
+          <Card cards={products} />
+        ))}
+      </section>
     </>
   );
 }
