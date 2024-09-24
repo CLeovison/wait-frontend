@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Card({ cards }) {
   return (
     <>
-      <section>
+      <section key={cards._id}>
         <img
           src={`http://localhost:5000/api/uploads/${
             cards.image?.filename || "default.png"
