@@ -16,9 +16,9 @@ export const getSearchProduct = async (value) => {
   }
 };
 
-export const getAllProduct = async (value) => {
+export const getAllProduct = async () => {
   try {
-    const response = await fetch(`${value}`);
+    const response = await fetch(`${url}/products`);
     if (!response.ok) {
       throw new Error("The Product that you searching was not fetching");
     }

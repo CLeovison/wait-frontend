@@ -5,8 +5,8 @@ export default function Card({ cards }) {
   return (
     <>
      
-        <div className="" key={cards._id}>
-          <div className="card">
+        <div className="shit" >
+          <div className="card" >
             <img
               className="w-24"
               src={`http://localhost:5000/api/uploads/${

@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
+import { getAllProduct } from "../../services/api/Product/Product";
 export default function Products() {
   //States
   const [allProduct, setAllProduct] = useState([]);
 
   useEffect(() => {
-    const getAllProduct = async () => {
-      const response = await fetch("http://localhost:5000/api/products");
-      if (!response.ok) {
-        throw new Error("This is not working");
+    const trialFetch = async () => {
+      try {
+        const response = await getAllProduct();
+  
+        setAllProduct(response.productPaginated);
+        console.log(response);
+        
+      } catch (error) {
+        console.log(error);
       }
-      const product = await response.json();
-z
-      setAllProduct(product.productPaginated);
     };
-    getAllProduct();
+    trialFetch();
   }, []);
 
-
+  console.log(allProduct);
+  
   return (
     <>
-      <section className="grid grid-cols-4">
+      <section className="grid grid-cols-4" >
         {allProduct.map((products) => (
-          <Card cards={products} />
+          <Card cards={products} key={products._id}/>
         ))}
       </section>
     </>
