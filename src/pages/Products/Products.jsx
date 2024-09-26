@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import { getAllProduct } from "../../services/api/Product/Product";
-
 export default function Products() {
   //States
   const [allProduct, setAllProduct] = useState([]);
@@ -10,7 +9,10 @@ export default function Products() {
     const trialFetch = async () => {
       try {
         const response = await getAllProduct();
+  
         setAllProduct(response.productPaginated);
+        console.log(response);
+        
       } catch (error) {
         console.log(error);
       }
@@ -18,11 +20,13 @@ export default function Products() {
     trialFetch();
   }, []);
 
+  console.log(allProduct);
+  
   return (
     <>
-      <section>
+      <section className="grid grid-cols-4" >
         {allProduct.map((products) => (
-          <Card cards={products} />
+          <Card cards={products} key={products._id}/>
         ))}
       </section>
     </>
