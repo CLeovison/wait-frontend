@@ -1,7 +1,15 @@
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function BreadCrump() {
+  const location = useLocation()
   return (
-    <div>BreadCrump</div>
+    <>
+    <ul>
+      <Link to={"/"}></Link>
+      <Link to={"/products"}></Link>
+    </ul>
+    
+    </>
   )
 }
