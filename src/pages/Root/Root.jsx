@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../../layouts/Header/Header";
 import Sider from "../../layouts/Sider/Sider";
 import { SearchContextProvider } from "../../hooks/Context/SearchContext";
-import BreadCrumbs from "../../components/ui/BreadCrumbs/BreadCrumbs";
+
 
 
 export default function Root() {
@@ -17,7 +17,7 @@ export default function Root() {
           <Outlet />
         </div>
       </div>
-    <BreadCrumbs/>
+
 
     </SearchContextProvider>
   );
