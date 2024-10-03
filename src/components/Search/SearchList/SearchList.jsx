@@ -1,13 +1,9 @@
 import React from "react";
-import Spinner from "../../ui/Spinner/Spinner";
-import { useSearch } from "../../../hooks/Context/useSearch";
 
-export default function SearchList({ results }) {
-  const { isLoading, setLoading } = useSearch();
-
+export default function SearchList({ results, isLoading }) {
   return (
     <>
-      {results.length > 0 ? (
+      {results.length > 0 && !isLoading ? (
         <div className="absolute flex flex-col bg-slate-400 w-60 mt-2 rounded-lg max-h-100">
           {results.slice(0, 5).map((list) => (
             <div
@@ -24,18 +20,14 @@ export default function SearchList({ results }) {
                 alt={list.productinfo?.productname || "No Image"}
                 className="mr-1 mt-1 w-12 rounded-lg"
               />
-
             </div>
           ))}
-
-          {!isLoading && <Spinner/>}
         </div>
       ) : (
         <p className=" pt-2 text-center absolute flex items-center flex-col bg-slate-400 w-60 mt-1 rounded-lg max-h-10 h-12">
           No recent search
         </p>
       )}
-      ;
     </>
   );
 }

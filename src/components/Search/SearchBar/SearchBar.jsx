@@ -19,7 +19,7 @@ export default function SearchBar() {
   const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
 
-  useEffect(() => {
+  useEffect(() => { 
     const searchProduct = async () => {
       const productList = await getSearchProduct(debounceSearch.term);
       if (debounceSearch.term === "") {
@@ -119,7 +119,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={searchItems} />}
+      {isChecked && <SearchList results={searchItems}/>}
     </>
   );
 }
