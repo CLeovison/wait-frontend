@@ -5,6 +5,7 @@ import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
 import { getSearchProduct } from "../../../services/api/Product/Product.js";
 import SearchList from "../SearchList/SearchList";
 import Tooltip from "../../Tooltip/Tooltip.jsx";
+import Spinner from "../../ui/Spinner/Spinner.jsx";
 
 export default function SearchBar() {
   //States
@@ -14,27 +15,32 @@ export default function SearchBar() {
   const [searchItems, setSearchItems] = useState([]);
 
   // Context / Hooks
-  const { setSearch } = useSearch();
+  const { setSearch, isLoading } = useSearch();
   const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
 
   useEffect(() => {
-
     const searchProduct = async () => {
       const productList = await getSearchProduct(debounceSearch.term);
-      debounceSearch.term === "" ? setSearchItems([]) : setSearchItems(productList.productPaginated);
+      if (debounceSearch.term === "") {
+        setSearchItems([]);
+      } else {
+        setSearchItems(productList.productPaginated);
+      }
     };
 
     if (debounceSearch.flag) searchProduct();
 
     const handleClickOutside = (e) => {
-      if (htmlSearchField.current && !htmlSearchField.current.contains(e.target)) {
+      if (
+        htmlSearchField.current &&
+        !htmlSearchField.current.contains(e.target)
+      ) {
         setIsChecked(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-    
   }, [isChecked, debounceSearch]);
 
   //Start of Handler Functions
@@ -51,23 +57,28 @@ export default function SearchBar() {
       case "ArrowDown":
         setSelectedItem((prev) => {
           const newIndex = Math.min((prev + 1) % searchItems.length);
-          setSearchTerm({term: searchItems[newIndex]?.productinfo?.productname.trim() || "", flag: false, });
+          setSearchTerm({
+            term: searchItems[newIndex]?.productinfo?.productname.trim() || "",
+            flag: false,
+          });
           return newIndex;
         });
         break;
-
       case "ArrowUp":
         setSelectedItem((prev) => {
-          const newIndex = Math.max((prev + searchItems.length - 1) % searchItems.length);
-          setSearchTerm({term: searchItems[newIndex]?.productinfo?.productname.trim() || "", flag: false,});
+          const newIndex = Math.max(
+            (prev + searchItems.length - 1) % searchItems.length
+          );
+          setSearchTerm({
+            term: searchItems[newIndex]?.productinfo?.productname.trim() || "",
+            flag: false,
+          });
           return newIndex;
         });
         break;
-
       case "Enter":
-        e.preventDefault()
+        e.preventDefault();
         break;
-
       case "Escape":
         setIsChecked(false);
         break;
@@ -83,6 +94,7 @@ export default function SearchBar() {
     setSearch(searchTerm);
   };
   //End of Handler Functions
+
   return (
     <>
       <form className="flex items-center" onSubmit={handleSubmit}>

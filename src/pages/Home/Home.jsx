@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import { getAllProduct } from "../../services/api/Product/Product";
 
+
 export default function Home() {
   const [collections, setCollections] = useState([])
 
@@ -21,6 +22,7 @@ export default function Home() {
   },[])
 
   return <>
+
       {collections.map(collection =>{
            return <Card cards={collection} key={collection._id}/>
       })}
