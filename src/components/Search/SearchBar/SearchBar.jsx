@@ -5,7 +5,7 @@ import { useDebounce } from "../../../hooks/UseDebounce/useDebounce";
 import { getSearchProduct } from "../../../services/api/Product/Product.js";
 import SearchList from "../SearchList/SearchList";
 import Tooltip from "../../Tooltip/Tooltip.jsx";
-import Spinner from "../../ui/Spinner/Spinner.jsx";
+
 
 export default function SearchBar() {
   //States
@@ -15,14 +15,16 @@ export default function SearchBar() {
   const [searchItems, setSearchItems] = useState([]);
 
   // Context / Hooks
-  const { setSearch, isLoading } = useSearch();
+  const { setSearch } = useSearch();
   const debounceSearch = useDebounce(searchTerm, 1000);
   const htmlSearchField = useRef(null);
 
-  useEffect(() => {
+  useEffect(() => { 
+    
     const searchProduct = async () => {
       const productList = await getSearchProduct(debounceSearch.term);
       if (debounceSearch.term === "") {
+        
         setSearchItems([]);
       } else {
         setSearchItems(productList.productPaginated);
@@ -119,7 +121,7 @@ export default function SearchBar() {
         </button>
       </form>
 
-      {isChecked && <SearchList results={searchItems} />}
+      {isChecked && <SearchList results={searchItems}/>}
     </>
   );
 }
