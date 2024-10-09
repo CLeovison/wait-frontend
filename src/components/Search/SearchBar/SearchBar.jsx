@@ -20,9 +20,11 @@ export default function SearchBar() {
   const htmlSearchField = useRef(null);
 
   useEffect(() => { 
+    
     const searchProduct = async () => {
       const productList = await getSearchProduct(debounceSearch.term);
       if (debounceSearch.term === "") {
+        
         setSearchItems([]);
       } else {
         setSearchItems(productList.productPaginated);
