@@ -6,6 +6,7 @@ import Sider from "../../layouts/Sider/Sider";
 import { SearchContextProvider } from "../../hooks/Context/SearchContext";
 
 
+
 export default function Root() {
   return (
     <SearchContextProvider>
