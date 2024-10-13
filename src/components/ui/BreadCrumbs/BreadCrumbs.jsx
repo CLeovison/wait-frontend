@@ -7,10 +7,7 @@ export default function BreadCrumbs() {
   
   return (
     <>
-    <ul>
-      <Link to={"/"}></Link>
-      <Link to={"/products"}></Link>
-    </ul>
+    <h1>BreadCrumbs</h1>
     
     </>
   )

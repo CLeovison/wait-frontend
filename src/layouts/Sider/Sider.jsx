@@ -5,6 +5,7 @@ import { Shirt } from 'lucide-react'
 import { UsersRound } from 'lucide-react'
 import { SquareUser } from 'lucide-react'
 import Footer from '../Footer/Footer'
+import BreadCrumbs from '../../components/ui/BreadCrumbs/BreadCrumbs'
 export default function Sider() {
   return (
     <>
@@ -18,6 +19,7 @@ export default function Sider() {
                 <li className="p-4"><Link to="/about" className='text-white flex flex-row items-center'><UsersRound className="mr-2.5"/>About</Link></li>
                 <li className="p-4"><Link to="/contact" className='text-white flex flex-row items-center'><SquareUser className="mr-2.5"/>Contact</Link></li>
             </ul>
+            <BreadCrumbs/>
         <footer>
 
           <div>
